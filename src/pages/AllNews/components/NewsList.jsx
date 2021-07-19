@@ -48,13 +48,12 @@ function NewsList(props) {
                 <Paper elevation={4} className="subNews__paper">
                   <Box
                     height="100%"
-                    minHeight="220px"
+                    minHeight="200px"
                     padding={1}
                     overflow="hidden"
                     display="flex"
                     flexDirection="column"
                     justifyContent="space-between"
-                    // style={{ height: '100%' }}
                   >
                     <Box>
                       <p className="newList__title">{item?.title}</p>
