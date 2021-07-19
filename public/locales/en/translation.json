@@ -1,0 +1,30 @@
+{
+    "infoCard": {
+        "cases": "CASES",
+        "recovered": "RECOVERED",
+        "deaths": "DEATHS"
+    },
+    "homePage":{
+        "mapTitle":"World covid map",
+        "graphTitle":"World covid graph",
+        "tableTitle":"Covid statistics by country"
+      },
+      "form":{
+        "loginTitle":"Login",
+        "registerTitle":"Register",
+        "username":"Username",
+        "password":"Password",
+        "confirmPassWord":"Confirm Password",
+        "minMes":"please at least 6 character",
+        "reqMes":"please enter",
+        "isNotMatchMes":"password does not match"
+      },
+      "header":{
+          "home":"Home",
+          "news":"News",
+          "country":"Country",
+          "myAccount":"My account",
+          "logout":"Logout"
+      }
+
+}

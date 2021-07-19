@@ -1,0 +1,27 @@
+.newList__title {
+  font-size: 25px;
+  cursor: pointer;
+  line-height: 140%;
+  font-weight: 700;
+  font-family: 'Merriweather', serif;
+  &:hover {
+    color: cornflowerblue;
+  }
+}
+.newList__description {
+  font-size: 14px;
+  line-height: 140%;
+  font: 400 15px arial;
+  text-align: justify;
+}
+.newList__author {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: right;
+  color: #108885;
+}
+
+.subNews__paper {
+  height: 100%;
+}
