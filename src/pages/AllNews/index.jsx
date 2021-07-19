@@ -1,5 +1,5 @@
-import { Box, Button, Container, Grid, Hidden, Paper, Typography } from '@material-ui/core';
-import { Progress } from 'antd';
+import { Box, Container, Grid, Hidden } from '@material-ui/core';
+import { Table } from 'antd';
 import 'antd/dist/antd.css';
 import React, { useEffect, useState } from 'react';
 import newApi from '../../apis/newsApi';
@@ -9,6 +9,31 @@ import './AllNews.scss';
 import ImgCarousel from './components/ImgCarousel';
 import NewsList from './components/NewsList';
 import NewSkeleton from './components/NewsSkeleton/NewsSkeleton';
+import Watch from './components/Watch';
+
+const dataSource = [
+  {
+    key: '1',
+    name: 'Mike',
+    age: 32,
+    address: '10 Downing Street',
+  },
+  {
+    key: '2',
+    name: 'John',
+    age: 42,
+    address: '10 Downing Street',
+  },
+];
+
+const columns = [
+  {
+    title: 'Sumary News',
+    dataIndex: 'title',
+    key: 'title',
+  },
+];
+
 function AllNews(props) {
   const [allNews, setAllNews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,28 +71,22 @@ function AllNews(props) {
           <Grid item sm={8} xs={12}>
             <NewsList allNews={allNews} />
           </Grid>
-          <Grid item sm={4} xs={12} container>
-            <Grid item sm={6} xs={6}>
-              <Paper>
-                <Box textAlign="center">
-                  <Progress type="circle" percent={75} strokeColor="" />
-                  <Typography variant="body2" color="inherit" className="allNews__more">
-                    Recovered Rate
-                  </Typography>
-                </Box>
-              </Paper>
+          <Hidden xsDown>
+            <Grid item sm={4} xs={12} container>
+              <Grid item sm={12} xs={12}>
+                <Watch />
+                <Table
+                  dataSource={allNews}
+                  columns={columns}
+                  size="middle"
+                  bordered
+                  color
+                  className="allNews__table"
+                  pagination={false}
+                />
+              </Grid>
             </Grid>
-            <Grid item sm={6} xs={6}>
-              <Paper>
-                <Box textAlign="center">
-                  <Progress type="circle" percent={75} strokeColor="red" />
-                  <Typography variant="body2" color="inherit" className="allNews__more">
-                    Recovered Rate
-                  </Typography>
-                </Box>
-              </Paper>
-            </Grid>
-          </Grid>
+          </Hidden>
         </Grid>
       </Container>
     </Box>
