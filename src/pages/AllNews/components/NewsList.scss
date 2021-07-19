@@ -1,17 +1,16 @@
 .newList__title {
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
   line-height: 140%;
   font-weight: 700;
-  font-family: 'Merriweather', serif;
+  margin-bottom: 0px;
   &:hover {
-    color: cornflowerblue;
+    color: #108885;
   }
 }
 .newList__description {
-  font-size: 14px;
   line-height: 140%;
-  font: 400 15px arial;
+  font-size: 12px;
   text-align: justify;
 }
 .newList__author {

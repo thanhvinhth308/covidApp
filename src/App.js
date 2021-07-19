@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import './App.css';
@@ -12,9 +13,7 @@ import DetailCountry from './pages/DetailCountry';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
-import i18next from 'i18next';
-import { GlobalActions } from './redux/rootAction';
-import { useDispatch } from 'react-redux';
+import './App.css';
 
 const lightTheme = {
   textColor: '#fff',
@@ -27,9 +26,6 @@ const darkTheme = {
 };
 
 function App(props) {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-
   const Global = createGlobalStyle`
   body {
     background-color: ${({ theme }) => theme.background};
@@ -47,7 +43,7 @@ function App(props) {
   const [theme, setTheme] = useState('light');
   return (
     // <div className="App">
-    <div>
+    <div className="App">
       {/* <GlobalLoading /> */}
       {/* change theme
       <button style={{ marginTop: '80px' }} onClick={toggleTheme}>

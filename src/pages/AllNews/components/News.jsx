@@ -6,7 +6,7 @@ function News(props) {
   const { news } = props;
   return (
     <Paper elevation={4}>
-      <Box padding={1} bgcolor="white" minHeight="100px" display="flex">
+      <Box padding={1} bgcolor="white" display="flex">
         <Avatar className="news__avatar" variant="square" alt="Not found" src={news?.urlToImage} />
         <Box className="news__box" paddingLeft={2}>
           <p className="news__title">{news.title}</p>

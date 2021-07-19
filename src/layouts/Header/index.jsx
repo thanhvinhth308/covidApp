@@ -1,12 +1,12 @@
 import {
   AppBar,
+  Avatar,
   CssBaseline,
   Divider,
   Drawer,
   FormControl,
   Hidden,
   IconButton,
-  InputLabel,
   List,
   ListItem,
   ListItemIcon,
@@ -20,16 +20,17 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import BurstModeIcon from '@material-ui/icons/BurstMode';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
+import i18next from 'i18next';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { checkToken } from '../../utils/localStorage';
-import i18next from 'i18next';
+import logo from '../../assets/images/covid/logo.jpg';
+import './Header.scss';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,10 +44,6 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 'bold',
       fontSize: '30px',
     },
-  },
-  title: {
-    flexGrow: 1,
-    color: 'white',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -119,6 +116,9 @@ function Header(props) {
 
   const drawer = (
     <div className={classes.listItem}>
+      <List>
+        <Avatar alt="Not found" src={logo} />
+      </List>
       <Divider />
       {checkToken() && (
         <List>
@@ -169,7 +169,7 @@ function Header(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
   return (
-    <div className={classes.root}>
+    <div>
       <CssBaseline />
       <AppBar color="secondary" className={classes.appBar}>
         <Toolbar>
@@ -182,9 +182,8 @@ function Header(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Covid Tracking
-          </Typography>
+          <Avatar alt="Not found" src={logo} />
+          <h2 className="header__slogan">Covid Tracking</h2>
           <FormControl>
             <Select
               onChange={handleLanguageChange}

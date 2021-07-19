@@ -12,7 +12,7 @@ const initOption = {
   chart: {
     height: '500',
     // nullColor: 'yellow',
-    backgroundColor: 'gray',
+    backgroundColor: '#48D1CC',
   },
   title: {
     text: null,

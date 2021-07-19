@@ -1,16 +1,15 @@
 .MuiAvatar-root.MuiAvatar-square.news__avatar {
   width: 90px;
-  height: auto;
+  height: 90px;
 }
 
 .news__title {
   font-size: 15px;
   cursor: pointer;
-  line-height: 140%;
   font-weight: 700;
-  font-family: 'Merriweather', serif;
+  margin-bottom: 0px;
   &:hover {
-    color: cornflowerblue;
+    color: #108885;
   }
 }
 .news__author {
@@ -21,9 +20,9 @@
   color: #108885;
 }
 .news__description {
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 140%;
-  font: 400 15px arial;
   text-align: justify;
 }
 .news__box {
