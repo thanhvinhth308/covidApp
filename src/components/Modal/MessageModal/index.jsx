@@ -1,33 +1,31 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { GlobalActions } from '../../../redux/rootAction';
+import { useHistory } from 'react-router-dom';
 
-import { Modal, Button } from 'antd';
 function MessageModal(props) {
-  const [visible, setVisible] = React.useState(false);
+  const dispatch = useDispatch();
+  const visible = useSelector((state) => state.GlobalReducer.isGetApiSuccess);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
-  const [modalText, setModalText] = React.useState('Content of the modal');
+  const [modalText, setModalText] = React.useState('Get Data failed,please try again');
+
   const handleOk = () => {
-    setModalText('The modal will be closed after two seconds');
+    setModalText('Please wait a minutes');
     setConfirmLoading(true);
     setTimeout(() => {
-      setVisible(false);
+      dispatch(GlobalActions.changeApiStatus(false));
       setConfirmLoading(false);
-    }, 2000);
+    }, 1000);
   };
   const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setVisible(false);
+    dispatch(GlobalActions.changeApiStatus(false));
   };
-  const showModal = () => {
-    setVisible(true);
-  };
+
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Open Modal with async logic
-      </Button>
       <Modal
-        title="Title"
+        title="Notification"
         visible={visible}
         onOk={handleOk}
         confirmLoading={confirmLoading}

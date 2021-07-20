@@ -18,7 +18,6 @@ import {
   Toolbar,
   useTheme,
 } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
 import BurstModeIcon from '@material-ui/icons/BurstMode';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -28,6 +27,7 @@ import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import avatarImage from '../../assets/images/covid/avatar.jpeg';
 import logo from '../../assets/images/covid/logo.jpg';
 import logo2 from '../../assets/images/covid/logo2.jpg';
 import { checkToken } from '../../utils/localStorage';
@@ -47,20 +47,20 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: drawerWidth,
       flexShrink: 0,
     },
   },
   appBar: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
@@ -182,7 +182,7 @@ function Header(props) {
             <MenuIcon />
           </IconButton>
           <Avatar alt="Not found" src={logo} />
-          <h2 className="header__slogan">Covid Tracking</h2>
+          <h3 className="header__slogan">Covid Tracking</h3>
           <FormControl>
             <Select
               onChange={handleLanguageChange}
@@ -196,7 +196,7 @@ function Header(props) {
           </FormControl>
           {checkToken() && (
             <IconButton onClick={handleMenuOpen} style={{ color: 'white' }}>
-              <AccountCircle color="inherit" />
+              <Avatar alt="Not found" src={avatarImage} />
             </IconButton>
           )}
         </Toolbar>
@@ -220,7 +220,7 @@ function Header(props) {
         <MenuItem onClick={handleLogoutClick}>{t('header.logout')}</MenuItem>
       </Menu>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        <Hidden smUp implementation="css">
+        <Hidden xsUp implementation="css">
           <Drawer
             container={container}
             variant="temporary"
@@ -237,7 +237,7 @@ function Header(props) {
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown implementation="css">
           <Drawer
             classes={{
               paper: classes.drawerPaper,

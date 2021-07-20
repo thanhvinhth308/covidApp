@@ -4,23 +4,23 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 CircleChart.propTypes = {};
 
-const generateOptions = data => {
+const generateOptions = (data) => {
   return {
     chart: {
       height: 400,
 
-      type: 'pie'
+      type: 'pie',
     },
     title: {
-      text: null
+      text: null,
     },
     // tooltip: {
     //   pointFormat: '<b>{point.percentage:.1f}%</b>',
     // },
     accessibility: {
       point: {
-        valueSuffix: '%'
-      }
+        valueSuffix: '%',
+      },
     },
     size: '150%',
     // plotOptions: {
@@ -40,24 +40,24 @@ const generateOptions = data => {
         data: [
           {
             name: 'Số ca nhiễm',
-            y: _.sum(data.cases && Object.values(data.cases))
+            y: _.sum(data?.cases && Object.values(data?.cases)),
           },
           {
             name: 'Số ca chết',
-            y: _.sum(data.cases && Object.values(data.deaths))
+            y: _.sum(data?.cases && Object.values(data?.deaths)),
           },
           {
             name: 'Số ca khỏi',
-            y: _.sum(data.cases && Object.values(data.recovered))
-          }
-        ]
-      }
-    ]
+            y: _.sum(data?.cases && Object.values(data?.recovered)),
+          },
+        ],
+      },
+    ],
   };
 };
 
 function CircleChart(props) {
-  const { report = [] } = props;
+  const { report } = props;
   const [options, setOptions] = useState({});
 
   useEffect(() => {

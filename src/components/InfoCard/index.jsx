@@ -8,29 +8,30 @@ import DetailCard from './components/DetailCard';
 
 function InfoCard(props) {
   const { t } = useTranslation();
+  const language = localStorage.getItem('i18nextLng');
   const [notableNumbers, setNotableNumbers] = useState([]);
 
   useEffect(() => {
-    covidApi.getGlobalSummary().then(res => {
+    covidApi.getGlobalSummary().then((res) => {
       const numbers = [
         {
           type: 'card__cases',
           title: t('infoCard.cases'),
           number: numeral(res.cases).format('0.0a'),
-          today: numeral(res.todayCases).format('0.0a')
+          today: numeral(res.todayCases).format('0.0a'),
         },
         {
           type: 'card__recovered',
           title: t('infoCard.recovered'),
           number: numeral(res.recovered).format('0.0a'),
-          today: numeral(res.todayRecovered).format('0.0a')
+          today: numeral(res.todayRecovered).format('0.0a'),
         },
         {
           type: 'card__deaths',
           title: t('infoCard.deaths'),
           number: numeral(res.deaths).format('0.0a'),
-          today: numeral(res.todayDeaths).format('0.0a')
-        }
+          today: numeral(res.todayDeaths).format('0.0a'),
+        },
       ];
       setNotableNumbers(numbers);
     });
@@ -40,10 +41,10 @@ function InfoCard(props) {
     const newNumbers = [
       { ...notableNumbers[0], title: t('infoCard.cases') },
       { ...notableNumbers[1], title: t('infoCard.recovered') },
-      { ...notableNumbers[2], title: t('infoCard.deaths') }
+      { ...notableNumbers[2], title: t('infoCard.deaths') },
     ];
     setNotableNumbers(newNumbers);
-  }, [t]);
+  }, [language]);
 
   return (
     <div>

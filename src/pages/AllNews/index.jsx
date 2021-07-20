@@ -2,8 +2,10 @@ import { Box, Container, Grid, Hidden } from '@material-ui/core';
 import { Table } from 'antd';
 import 'antd/dist/antd.css';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import newApi from '../../apis/newsApi';
 import InfoCard from '../../components/InfoCard';
+import { GlobalActions } from '../../redux/rootAction';
 import { checkToken } from '../../utils/localStorage';
 import './AllNews.scss';
 import ImgCarousel from './components/ImgCarousel';
@@ -15,13 +17,15 @@ const columns = [
   {
     title: 'Sumary News',
     dataIndex: 'title',
-    key: 'title'
-  }
+    key: 'title',
+  },
 ];
 
 function AllNews(props) {
   const [allNews, setAllNews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const getAllNews = async () => {
       setIsLoading(true);
@@ -32,7 +36,7 @@ function AllNews(props) {
     try {
       getAllNews();
     } catch (error) {
-      alert('Get Data failed,please try again');
+      dispatch(GlobalActions.changeApiStatus(true));
       setIsLoading(false);
     }
   }, []);
