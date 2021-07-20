@@ -9,7 +9,7 @@ const contentStyle = {
   color: '#fff',
   lineHeight: '160px',
   textAlign: 'center',
-  background: 'black',
+  background: 'black'
 };
 function ImgCarousel(props) {
   return (

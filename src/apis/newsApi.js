@@ -6,11 +6,11 @@ const newApi = {
         sources: 'bbc-news',
         // from: '2021-06-07',
         // sortBy: 'publishedAt',
-        apiKey: '5492716e49eb4c87baedd4b91d4925c5',
-      },
+        apiKey: '5492716e49eb4c87baedd4b91d4925c5'
+      }
     });
     return data;
-  },
+  }
 };
 export default newApi;
 

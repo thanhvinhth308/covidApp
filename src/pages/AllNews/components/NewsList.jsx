@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Paper, Typography } from '@material-ui/core';
+import { Box, Divider, Grid, Paper } from '@material-ui/core';
 import { Image } from 'antd';
 import React from 'react';
 import News from './News';
@@ -43,8 +43,8 @@ function NewsList(props) {
       <Paper elevation={5} variant="outlined">
         <Grid container>
           <Grid item xs={12} sm={12} md={12} lg={12} container>
-            {subNews.map((item) => (
-              <Grid item xs={12} sm={12} md={12} lg={4}>
+            {subNews.map((item, index) => (
+              <Grid key={index} item xs={12} sm={12} md={12} lg={4}>
                 <Paper elevation={4} className="subNews__paper">
                   <Box
                     height="100%"

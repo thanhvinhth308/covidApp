@@ -1,30 +1,21 @@
-import {
-  Avatar,
-  Box,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  makeStyles,
-  NativeSelect,
-  TextField,
-} from '@material-ui/core';
-import { deepOrange, green } from '@material-ui/core/colors';
+import { Avatar, Box, makeStyles, TextField } from '@material-ui/core';
+import { deepOrange } from '@material-ui/core/colors';
 import { Autocomplete } from '@material-ui/lab';
 import React from 'react';
 
 CountrySelector.propTypes = {};
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   square: {
     color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
+    backgroundColor: deepOrange[500]
   },
   option: {
     fontSize: 15,
     '& > span': {
       marginRight: 10,
-      fontSize: 18,
-    },
-  },
+      fontSize: 18
+    }
+  }
 }));
 function CountrySelector(props) {
   const { onCountryChange, countries = [] } = props;
@@ -35,12 +26,12 @@ function CountrySelector(props) {
       id="country-select"
       options={countries}
       classes={{
-        option: classes.option,
+        option: classes.option
       }}
       onChange={onCountryChange}
       autoHighlight
-      getOptionLabel={(option) => option.country}
-      renderOption={(option) => (
+      getOptionLabel={option => option.country}
+      renderOption={option => (
         <React.Fragment>
           <span>
             <Avatar className={classes.square} src={option?.flag} />
@@ -48,7 +39,7 @@ function CountrySelector(props) {
           {option?.country}
         </React.Fragment>
       )}
-      renderInput={(params) => (
+      renderInput={params => (
         <Box>
           <TextField
             {...params}
@@ -58,7 +49,7 @@ function CountrySelector(props) {
             fullWidth
             inputProps={{
               ...params.inputProps,
-              autoComplete: 'new-password',
+              autoComplete: 'new-password'
             }}
           />
         </Box>

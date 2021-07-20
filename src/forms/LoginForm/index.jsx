@@ -7,33 +7,33 @@ import * as yup from 'yup';
 import PasswordField from '../../components/FormControls/PasswordField';
 import TextInputField from '../../components/FormControls/TextInputField';
 LoginForm.propTypes = {};
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(5),
-    minHeight: '60vh',
+    minHeight: '60vh'
   },
   avatar: {
     margin: '0 auto',
-    background: theme.palette.secondary.main,
+    background: theme.palette.secondary.main
   },
   title: {
     margin: theme.spacing(2, 0, 4, 0),
-    textAlign: 'center',
+    textAlign: 'center'
   },
   submit: {
-    margin: theme.spacing(5, 0, 3, 0),
+    margin: theme.spacing(5, 0, 3, 0)
   },
   progress: {
     position: 'absolute',
     top: theme.spacing(1),
     left: 0,
-    right: 0,
+    right: 0
   },
   pink: {
     color: theme.palette.getContrastText(pink[500]),
     backgroundColor: pink[500],
-    margin: 'auto',
-  },
+    margin: 'auto'
+  }
 }));
 
 function LoginForm(props) {
@@ -42,23 +42,15 @@ function LoginForm(props) {
   const { t } = useTranslation();
   const initialValues = {
     username: '',
-    password: '',
+    password: ''
   };
 
   let validationSchema = yup.object().shape({
-    username: yup
-      .string()
-      .min(6, t('form.minMes'))
-      .required(t('form.reqMes'))
-      .typeError(t('form.reqMes')),
-    password: yup
-      .string()
-      .min(6, t('form.minMes'))
-      .required(t('form.reqMes'))
-      .typeError(t('form.reqMes')),
+    username: yup.string().min(6, t('form.minMes')).required(t('form.reqMes')).typeError(t('form.reqMes')),
+    password: yup.string().min(6, t('form.minMes')).required(t('form.reqMes')).typeError(t('form.reqMes'))
   });
 
-  const handleDrinkAddToCart = (formValue) => {
+  const handleDrinkAddToCart = formValue => {
     if (onAccountCheck) {
       onAccountCheck(formValue);
     }
@@ -73,30 +65,14 @@ function LoginForm(props) {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(formValue) => handleDrinkAddToCart(formValue)}
+        onSubmit={formValue => handleDrinkAddToCart(formValue)}
       >
         {() => {
           return (
             <Form>
-              <FastField
-                name="username"
-                id="username"
-                component={TextInputField}
-                label={t('form.username')}
-              />
-              <FastField
-                name="password"
-                id="password"
-                component={PasswordField}
-                label={t('form.password')}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="secondary"
-                className={classes.submit}
-                fullWidth
-              >
+              <FastField name="username" id="username" component={TextInputField} label={t('form.username')} />
+              <FastField name="password" id="password" component={PasswordField} label={t('form.password')} />
+              <Button type="submit" variant="contained" color="secondary" className={classes.submit} fullWidth>
                 {t('form.loginTitle')}
               </Button>
             </Form>

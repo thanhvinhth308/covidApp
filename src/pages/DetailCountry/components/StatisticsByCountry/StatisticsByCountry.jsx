@@ -20,19 +20,16 @@ function StatisticsByCountry(props) {
   const handleCountryChange = (event, value) => {
     history.push(`/countries/${value.country}`);
   };
-  const handleTimeChange = (time) => {
-    setTime(time);
-  };
 
   useEffect(() => {
     try {
       const handleCountriesData = async () => {
         setIsLoading(true);
         const respond = await covidApi.getSummaryAllCountry();
-        const countriesData = respond.map((country) => ({
+        const countriesData = respond.map(country => ({
           country: country.country,
           iso2: country.countryInfo.iso2?.toLowerCase(),
-          flag: country.countryInfo?.flag,
+          flag: country.countryInfo?.flag
         }));
         setCountries(countriesData);
         setIsLoading(false);
@@ -48,15 +45,15 @@ function StatisticsByCountry(props) {
     if (countryName) {
       setIsLoading(true);
       history.push(`/countries/${countryName}`);
-      const selectedCountry = countries.find((country) => country.country === countryName);
+      const selectedCountry = countries.find(country => country.country === countryName);
       setCountryId(selectedCountry?.iso2);
       covidApi
         .getSummaryByCountry(countryName, time)
-        .then((res) => {
+        .then(res => {
           setCountryReport(res);
           setIsLoading(false);
         })
-        .catch((error) => {
+        .catch(error => {
           alert('Get Data failed,please try again??????');
           setIsLoading(false);
         });

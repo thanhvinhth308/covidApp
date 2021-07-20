@@ -7,8 +7,8 @@ const covidApi = {
   async getSummaryByCountry(country, time) {
     const data = await axiosCovid.get(`/historical/${country}`, {
       params: {
-        lastdays: time,
-      },
+        lastdays: time
+      }
     });
     return data;
   },
@@ -19,11 +19,11 @@ const covidApi = {
   async getHistoricalGlobalSummary(time) {
     const data = await axiosCovid.get(`/historical/all`, {
       params: {
-        lastdays: time,
-      },
+        lastdays: time
+      }
     });
     return data;
-  },
+  }
 };
 export default covidApi;
 

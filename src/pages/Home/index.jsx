@@ -1,18 +1,14 @@
-import { Box, Paper, Typography } from '@material-ui/core';
-import i18next from 'i18next';
+import { Box, Paper } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import WorldMap from '../../components/Chart/WorldMap';
 import InfoCard from '../../components/InfoCard';
 import TableStatistics from '../../components/TableStatistics';
 import WorldStatistics from '../../components/WorldStatistics';
-import { GlobalActions } from '../../redux/rootAction';
 import './Home.scss';
 
 function Home(props) {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   return (
     <Box paddingTop="80px">
       <InfoCard />

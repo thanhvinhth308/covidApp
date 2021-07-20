@@ -16,20 +16,21 @@ import {
   MenuItem,
   Select,
   Toolbar,
-  Typography,
   useTheme,
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import BurstModeIcon from '@material-ui/icons/BurstMode';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Image } from 'antd';
 import i18next from 'i18next';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { checkToken } from '../../utils/localStorage';
 import logo from '../../assets/images/covid/logo.jpg';
+import logo2 from '../../assets/images/covid/logo2.jpg';
+import { checkToken } from '../../utils/localStorage';
 import './Header.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -116,9 +117,7 @@ function Header(props) {
 
   const drawer = (
     <div className={classes.listItem}>
-      <List>
-        <Avatar alt="Not found" src={logo} />
-      </List>
+      <Image width="100%" src={logo2} />
       <Divider />
       {checkToken() && (
         <List>

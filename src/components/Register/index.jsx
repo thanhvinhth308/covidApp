@@ -1,17 +1,14 @@
-import { Box, makeStyles } from '@material-ui/core';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import RegisterForm from '../../forms/RegisterForm';
-import SignInBackground from '../../assets/images/background/signInBackground.jpeg';
+import { Box } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
+import React from 'react';
+import RegisterForm from '../../forms/RegisterForm';
 Register.propTypes = {};
 
 function Register(props) {
   const { OnRegisterClose } = props;
-  const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleAccountRegister = async (formValues) => {
+  const handleAccountRegister = async formValues => {
     const { username, password } = formValues;
     const allAccount = JSON.parse(localStorage.getItem('account'));
     if (allAccount) {
@@ -21,11 +18,9 @@ function Register(props) {
       if (OnRegisterClose) {
         OnRegisterClose();
       }
-      // history.push('/news');
     } else {
       localStorage.setItem('account', JSON.stringify([{ username: username, password: password }]));
       enqueueSnackbar('Tạo tài khoản thành công', { variant: 'success' });
-      // history.push('/news');
     }
   };
   return (

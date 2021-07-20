@@ -9,7 +9,7 @@ function PrivateRouter({ component: Component, ...rest }) {
     <div>
       <Route
         {...rest}
-        render={(props) =>
+        render={props =>
           checkToken() ? (
             <MainLayout>
               <Component {...props} />

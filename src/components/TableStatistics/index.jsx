@@ -1,16 +1,9 @@
-import { Avatar, Box, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, Box } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import covidApi from '../../apis/covidApi';
-TableStatistics.propTypes = {};
-
-const useStyles = makeStyles({
-  root: {
-    '& .super-app-theme--header': {
-      backgroundColor: 'rgba(255, 7, 0, 0.55)',
-    },
-  },
-});
+import './TableStatistics.scss';
 
 const columns = [
   {
@@ -95,7 +88,11 @@ const columns = [
 function TableStatistics(props) {
   const [infoCountries, setInfoCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const classes = useStyles();
+  const history = useHistory();
+
+  const handleRowClick = (e) => {
+    history.push(`/countries/${e.row.country}`);
+  };
 
   useEffect(() => {
     const handleMapData = async () => {
@@ -123,7 +120,6 @@ function TableStatistics(props) {
   return (
     <Box style={{ height: 620 }}>
       <DataGrid
-        className={classes.root}
         showCellRightBorder={true}
         showColumnRightBorder={true}
         loading={isLoading}
@@ -131,9 +127,7 @@ function TableStatistics(props) {
         columns={columns}
         pageSize={10}
         disableExtendRowFullWidth={true}
-        onCellClick={() => {
-          console.log('onCellClick');
-        }}
+        onCellClick={handleRowClick}
       />
     </Box>
   );

@@ -1,11 +1,9 @@
 import { Box } from '@material-ui/core';
 import { Card, Skeleton } from 'antd';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import './DetailCard.scss';
 
 function DetailCard(props) {
-  // const language = useSelector((state) => state.GlobalReducer.language);
   const { notableNumber } = props;
   return (
     <Box className={notableNumber.type}>

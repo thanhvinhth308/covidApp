@@ -13,7 +13,7 @@ function PasswordField(props) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
-    setShowPassword((show) => !show);
+    setShowPassword(show => !show);
   };
 
   return (
@@ -34,13 +34,11 @@ function PasswordField(props) {
                 {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
               </IconButton>
             </InputAdornment>
-          ),
+          )
         }}
         {...field}
       />
-      <ErrorMessage name={name}>
-        {(msg) => <Typography color="secondary">{msg}</Typography>}
-      </ErrorMessage>
+      <ErrorMessage name={name}>{msg => <Typography color="secondary">{msg}</Typography>}</ErrorMessage>
     </div>
   );
 }

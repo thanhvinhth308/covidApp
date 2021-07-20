@@ -22,9 +22,7 @@ function TextInputField(props) {
         invalid={String(!!showError)}
         {...field}
       />
-      <ErrorMessage name={name}>
-        {(msg) => <Typography color="secondary">{msg}</Typography>}
-      </ErrorMessage>
+      <ErrorMessage name={name}>{msg => <Typography color="secondary">{msg}</Typography>}</ErrorMessage>
     </div>
   );
 }

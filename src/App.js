@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import './App.css';
@@ -13,16 +11,15 @@ import DetailCountry from './pages/DetailCountry';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
-import './App.css';
 
 const lightTheme = {
   textColor: '#fff',
-  background: '#000',
+  background: '#000'
 };
 
 const darkTheme = {
   textColor: '#000',
-  background: '#fff',
+  background: '#fff'
 };
 
 function App(props) {

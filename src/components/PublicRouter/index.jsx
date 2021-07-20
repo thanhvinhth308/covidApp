@@ -8,7 +8,7 @@ function PublicRouter({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      render={(props) => (
+      render={props => (
         <PublicLayout>
           <Component {...props} />
         </PublicLayout>
