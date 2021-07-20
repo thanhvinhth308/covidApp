@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isLoading: false
+  isLoading: false,
+  isGetApiSuccess: false,
 };
 
 const globalSlice = createSlice({
@@ -10,8 +11,11 @@ const globalSlice = createSlice({
   reducers: {
     toggleLoading(state, action) {
       state.isLoading = action.payload;
-    }
-  }
+    },
+    changeApiStatus(state, action) {
+      state.isGetApiSuccess = action.payload;
+    },
+  },
 });
 
 const { actions, reducer } = globalSlice;

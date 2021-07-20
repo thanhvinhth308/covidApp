@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import './App.css';
 import AuthRouter from './components/AuthRouter';
 import Login from './components/Login';
+import MessageModal from './components/Modal/MessageModal';
 import PrivateRouter from './components/PrivateRouter';
 import PublicRouter from './components/PublicRouter';
 import AllNews from './pages/AllNews';
@@ -14,12 +15,12 @@ import Profile from './pages/Profile';
 
 const lightTheme = {
   textColor: '#fff',
-  background: '#000'
+  background: '#000',
 };
 
 const darkTheme = {
   textColor: '#000',
-  background: '#fff'
+  background: '#fff',
 };
 
 function App(props) {
@@ -57,6 +58,7 @@ function App(props) {
         <Route component={NotFound} />
       </Switch>
       {/* </ThemeProvider> */}
+      <MessageModal />
     </div>
   );
 }

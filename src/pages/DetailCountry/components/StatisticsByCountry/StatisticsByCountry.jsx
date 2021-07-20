@@ -1,15 +1,18 @@
 import { Button, ButtonGroup, Grid, LinearProgress, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import covidApi from '../../../../apis/covidApi';
 import CircleChart from '../../../../components/Chart/CircleChart';
 import CountryMap from '../../../../components/Chart/CountryMap';
 import LineChart from '../../../../components/Chart/LineChart';
+import { GlobalActions } from '../../../../redux/rootAction';
 import CountrySelector from './components/CountrySelector';
 StatisticsByCountry.propTypes = {};
 
 function StatisticsByCountry(props) {
   const history = useHistory();
+  const dispatch = useDispatch();
   const { countryName } = useParams();
   const [countries, setCountries] = useState([]);
   const [countryReport, setCountryReport] = useState({});
@@ -18,7 +21,9 @@ function StatisticsByCountry(props) {
   const [time, setTime] = useState(45);
 
   const handleCountryChange = (event, value) => {
-    history.push(`/countries/${value.country}`);
+    if (value.country) {
+      history.push(`/countries/${value.country}`);
+    }
   };
 
   useEffect(() => {
@@ -26,17 +31,17 @@ function StatisticsByCountry(props) {
       const handleCountriesData = async () => {
         setIsLoading(true);
         const respond = await covidApi.getSummaryAllCountry();
-        const countriesData = respond.map(country => ({
+        const countriesData = respond.map((country) => ({
           country: country.country,
           iso2: country.countryInfo.iso2?.toLowerCase(),
-          flag: country.countryInfo?.flag
+          flag: country.countryInfo?.flag,
         }));
         setCountries(countriesData);
         setIsLoading(false);
       };
       handleCountriesData();
     } catch (error) {
-      alert('Get Data failed,please try again.........');
+      dispatch(GlobalActions.changeApiStatus(true));
       setIsLoading(false);
     }
   }, []);
@@ -45,16 +50,16 @@ function StatisticsByCountry(props) {
     if (countryName) {
       setIsLoading(true);
       history.push(`/countries/${countryName}`);
-      const selectedCountry = countries.find(country => country.country === countryName);
+      const selectedCountry = countries.find((country) => country.country === countryName);
       setCountryId(selectedCountry?.iso2);
       covidApi
         .getSummaryByCountry(countryName, time)
-        .then(res => {
+        .then((res) => {
           setCountryReport(res);
           setIsLoading(false);
         })
-        .catch(error => {
-          alert('Get Data failed,please try again??????');
+        .catch((error) => {
+          dispatch(GlobalActions.changeApiStatus(true));
           setIsLoading(false);
         });
     }

@@ -3,7 +3,9 @@ import Highchart from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highchartsMap from 'highcharts/modules/map';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import covidApi from '../../apis/covidApi';
+import { GlobalActions } from '../../redux/rootAction';
 
 WorldMap.propTypes = {};
 
@@ -12,37 +14,37 @@ const initOption = {
   chart: {
     height: '500',
     // nullColor: 'yellow',
-    backgroundColor: '#48D1CC'
+    backgroundColor: '#b7e3fa',
   },
   title: {
-    text: null
+    text: null,
   },
 
   mapNavigation: {
-    enabled: true
+    enabled: true,
   },
   colorAxis: {
     min: 0,
     stops: [
-      [0.2, '#FFC4AA'],
-      [0.4, '#FF8A66'],
-      [0.6, '#FF392B'],
-      [0.8, '#B71525'],
-      [1, '#7A0826']
-    ]
+      [0.2, '#e0529c'],
+      [0.4, '#cb2b83'],
+      [0.6, '#cb2b83'],
+      [0.8, '#a02669'],
+      [1, '#551c3b'],
+    ],
   },
 
   legend: {
     layout: 'bottom',
     align: 'left',
-    verticalAlign: 'bottom'
+    verticalAlign: 'bottom',
   },
 
   series: [
     {
       mapData: {},
       joinBy: ['hc-key', 'key'],
-      name: 'Số người bị'
+      name: 'Số người bị',
       // point: {
       //   type: 'mapline',
       //   name: 'Separators',
@@ -54,14 +56,15 @@ const initOption = {
     {
       name: 'Separators',
       nullColor: 'gray',
-      showInLegend: false
-    }
-  ]
+      showInLegend: false,
+    },
+  ],
 };
 
 function WorldMap(props) {
   const [mapData, setMapData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     try {
@@ -76,21 +79,22 @@ function WorldMap(props) {
               ...initOption.series[0],
               ...initOption.series[1],
               mapData: map,
-              data: summaryByCountry.map(feature => ({
+              data: summaryByCountry.map((feature) => ({
                 key: feature.countryInfo.iso2?.toLowerCase(),
-                value: feature.cases
-              }))
-            }
-          ]
+                value: feature.cases,
+              })),
+            },
+          ],
         });
         setIsLoading(false);
       };
       handleMapData();
     } catch (error) {
-      alert('Get Data failed,please try again');
+      dispatch(GlobalActions.changeApiStatus(true));
       setIsLoading(false);
     }
   }, []);
+
   return (
     <div>
       {isLoading && <LinearProgress />}

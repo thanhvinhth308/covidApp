@@ -11,10 +11,12 @@ function Login(props) {
   const [message, setMessage] = useState('');
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleAccountCheck = async formValues => {
+  const handleAccountCheck = async (formValues) => {
     const { username, password } = formValues;
     const allAccount = JSON.parse(localStorage.getItem('account'));
-    const index = allAccount.findIndex(item => item.username === username && item.password === password);
+    const index = allAccount.findIndex(
+      (item) => item.username === username && item.password === password
+    );
 
     if (index > -1) {
       setMessage('');
@@ -23,13 +25,15 @@ function Login(props) {
       enqueueSnackbar('Đăng nhập thành công', { variant: 'success' });
       history.push('/');
     } else {
-      setMessage('Tài khoản hoặc mật khẩu của bạn không chính xác');
+      setMessage('Tài khoản hoặc mật khẩu không chính xác');
     }
   };
   return (
     <div>
       <LoginForm onAccountCheck={handleAccountCheck} />
-      <Typography color="secondary">{message}</Typography>
+      <Typography component="span" color="secondary">
+        {message}
+      </Typography>
     </div>
   );
 }

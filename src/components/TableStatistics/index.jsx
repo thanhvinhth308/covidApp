@@ -1,8 +1,10 @@
 import { Avatar, Box } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import covidApi from '../../apis/covidApi';
+import { GlobalActions } from '../../redux/rootAction';
 import './TableStatistics.scss';
 
 const columns = [
@@ -89,6 +91,7 @@ function TableStatistics(props) {
   const [infoCountries, setInfoCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleRowClick = (e) => {
     history.push(`/countries/${e.row.country}`);
@@ -113,7 +116,7 @@ function TableStatistics(props) {
     try {
       handleMapData();
     } catch (error) {
-      alert('Get Data failed,please try again');
+      dispatch(GlobalActions.changeApiStatus(true));
       setIsLoading(false);
     }
   }, []);

@@ -1,6 +1,8 @@
 import { Button, ButtonGroup, Grid, LinearProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import covidApi from '../../apis/covidApi';
+import { GlobalActions } from '../../redux/rootAction';
 import BasicLineChart from '../Chart/BasicLineChart';
 import CircleChart from '../Chart/CircleChart';
 
@@ -11,8 +13,9 @@ function WorldStatistics(props) {
   const [worldReport, setWorldReport] = useState([]);
   const [time, setTime] = useState(45);
   const [reportType, setReportType] = useState(45);
+  const dispatch = useDispatch();
 
-  const handleTimeChange = time => {
+  const handleTimeChange = (time) => {
     setTime(time);
   };
 
@@ -20,12 +23,12 @@ function WorldStatistics(props) {
     setIsLoading(true);
     covidApi
       .getHistoricalGlobalSummary(time)
-      .then(res => {
+      .then((res) => {
         setWorldReport(res);
         setIsLoading(false);
       })
-      .catch(error => {
-        alert('Get Data failed,please try again');
+      .catch((error) => {
+        dispatch(GlobalActions.changeApiStatus(true));
         setIsLoading(false);
       });
   }, [time]);
