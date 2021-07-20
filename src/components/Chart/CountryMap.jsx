@@ -9,14 +9,14 @@ highchartsMap(Highchart);
 
 const initOption = {
   chart: {
-    height: '500',
+    height: '500'
   },
   title: {
-    text: null,
+    text: null
   },
 
   mapNavigation: {
-    enabled: true,
+    enabled: true
   },
 
   colorAxis: {
@@ -26,23 +26,23 @@ const initOption = {
       [0.4, '#FF8A66'],
       [0.6, '#FF392B'],
       [0.8, '#B71525'],
-      [1, '#7A0826'],
-    ],
+      [1, '#7A0826']
+    ]
   },
 
   legend: {
     layout: 'bottom',
     align: 'left',
-    verticalAlign: 'bottom',
+    verticalAlign: 'bottom'
   },
 
   series: [
     {
       mapData: {},
       joinBy: ['hc-key', 'key'],
-      name: 'Dan so',
-    },
-  ],
+      name: 'Dan so'
+    }
+  ]
 };
 
 function CountryMap(props) {
@@ -53,42 +53,35 @@ function CountryMap(props) {
 
   useEffect(() => {
     if (countryId) {
-      import(`@highcharts/map-collection/countries/${countryId}/${countryId}-all.geo.json`).then(
-        (res) => {
-          const fakeData = res.features.map((feature, index) => ({
-            key: feature.properties['hc-key'],
-            value: index,
-          }));
-          setMapData(res);
-          setOptions({
-            ...initOption,
-            series: [
-              {
-                ...initOption.series[0],
-                mapData: res,
-                data: fakeData,
-              },
-            ],
-          });
-        }
-      );
+      import(`@highcharts/map-collection/countries/${countryId}/${countryId}-all.geo.json`).then(res => {
+        const fakeData = res.features.map((feature, index) => ({
+          key: feature.properties['hc-key'],
+          value: index
+        }));
+        setMapData(res);
+        setOptions({
+          ...initOption,
+          series: [
+            {
+              ...initOption.series[0],
+              mapData: res,
+              data: fakeData
+            }
+          ]
+        });
+      });
     }
   }, [countryId]);
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
       chartRef.current.chart.series[0]?.update({
-        mapData,
+        mapData
       });
     }
   }, [mapData]);
   return (
-    <HighchartsReact
-      highcharts={Highchart}
-      options={cloneDeep(options)}
-      constructorType="mapChart"
-      ref={chartRef}
-    />
+    <HighchartsReact highcharts={Highchart} options={cloneDeep(options)} constructorType="mapChart" ref={chartRef} />
   );
 }
 

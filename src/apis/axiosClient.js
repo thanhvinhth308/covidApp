@@ -2,8 +2,8 @@ import axios from 'axios';
 const axiosCovid = axios.create({
   baseURL: 'https://disease.sh/v3/covid-19/',
   headers: {
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
 axiosCovid.interceptors.request.use(
@@ -33,8 +33,8 @@ axiosCovid.interceptors.response.use(
 const axiosNews = axios.create({
   baseURL: 'https://newsapi.org/v2/',
   headers: {
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
 axiosNews.interceptors.request.use(

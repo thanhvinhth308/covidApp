@@ -1,4 +1,4 @@
-import { Avatar, Box, Paper, Typography } from '@material-ui/core';
+import { Avatar, Box, Paper } from '@material-ui/core';
 import React from 'react';
 import './News.scss';
 

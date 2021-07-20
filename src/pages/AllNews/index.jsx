@@ -11,27 +11,12 @@ import NewsList from './components/NewsList';
 import NewSkeleton from './components/NewsSkeleton/NewsSkeleton';
 import Watch from './components/Watch';
 
-const dataSource = [
-  {
-    key: '1',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '2',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-];
-
 const columns = [
   {
     title: 'Sumary News',
     dataIndex: 'title',
-    key: 'title',
-  },
+    key: 'title'
+  }
 ];
 
 function AllNews(props) {

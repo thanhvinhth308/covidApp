@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isLoading: false,
-  language: 1,
+  isLoading: false
 };
 
 const globalSlice = createSlice({
@@ -11,11 +10,8 @@ const globalSlice = createSlice({
   reducers: {
     toggleLoading(state, action) {
       state.isLoading = action.payload;
-    },
-    changeLanguage(state, action) {
-      state.language = state.language + 1;
-    },
-  },
+    }
+  }
 });
 
 const { actions, reducer } = globalSlice;

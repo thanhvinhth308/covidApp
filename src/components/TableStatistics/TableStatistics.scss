@@ -1,0 +1,25 @@
+.MuiBox-root.MuiBox-root-31 {
+  text-align: center;
+  .MuiDataGrid-root.MuiDataGrid-root {
+    text-align: center;
+    .MuiDataGrid-columnsContainer {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      font-family: 'Roboto Slab', serif;
+      width: 100%;
+      .MuiDataGrid-columnHeaderDraggableContainer {
+        .MuiDataGrid-columnHeaderTitleContainer {
+        }
+        .MuiDataGrid-sortIcon {
+          color: white;
+          font-weight: bold;
+        }
+      }
+    }
+    .MuiDataGrid-viewport {
+      font-weight: bold;
+      font-family: 'Roboto Slab', serif;
+    }
+  }
+}

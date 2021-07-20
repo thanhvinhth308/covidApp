@@ -12,14 +12,14 @@ const initOption = {
   chart: {
     height: '500',
     // nullColor: 'yellow',
-    backgroundColor: '#48D1CC',
+    backgroundColor: '#48D1CC'
   },
   title: {
-    text: null,
+    text: null
   },
 
   mapNavigation: {
-    enabled: true,
+    enabled: true
   },
   colorAxis: {
     min: 0,
@@ -28,21 +28,21 @@ const initOption = {
       [0.4, '#FF8A66'],
       [0.6, '#FF392B'],
       [0.8, '#B71525'],
-      [1, '#7A0826'],
-    ],
+      [1, '#7A0826']
+    ]
   },
 
   legend: {
     layout: 'bottom',
     align: 'left',
-    verticalAlign: 'bottom',
+    verticalAlign: 'bottom'
   },
 
   series: [
     {
       mapData: {},
       joinBy: ['hc-key', 'key'],
-      name: 'Số người bị',
+      name: 'Số người bị'
       // point: {
       //   type: 'mapline',
       //   name: 'Separators',
@@ -54,9 +54,9 @@ const initOption = {
     {
       name: 'Separators',
       nullColor: 'gray',
-      showInLegend: false,
-    },
-  ],
+      showInLegend: false
+    }
+  ]
 };
 
 function WorldMap(props) {
@@ -76,12 +76,12 @@ function WorldMap(props) {
               ...initOption.series[0],
               ...initOption.series[1],
               mapData: map,
-              data: summaryByCountry.map((feature) => ({
+              data: summaryByCountry.map(feature => ({
                 key: feature.countryInfo.iso2?.toLowerCase(),
-                value: feature.cases,
-              })),
-            },
-          ],
+                value: feature.cases
+              }))
+            }
+          ]
         });
         setIsLoading(false);
       };
