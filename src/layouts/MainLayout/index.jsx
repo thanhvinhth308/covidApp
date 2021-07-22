@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import React from 'react';
 import Header from '../Header';
 
@@ -8,7 +8,9 @@ function MainLayout({ children }) {
   return (
     <div style={{ display: 'flex' }}>
       <Header />
-      <Box style={{ width: `100%` }}>{children}</Box>
+      <Box padding={2} style={{ width: `100%` }}>
+        {children}
+      </Box>
     </div>
   );
 }

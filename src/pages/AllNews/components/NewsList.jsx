@@ -40,6 +40,7 @@ function NewsList(props) {
         </Grid>
       </Paper>
       <Divider light />
+
       <Paper elevation={5} variant="outlined">
         <Grid container>
           <Grid item xs={12} sm={12} md={12} lg={12} container>
@@ -68,12 +69,15 @@ function NewsList(props) {
         </Grid>
       </Paper>
       <Divider light />
+
       <Paper elevation={5} variant="outlined">
         <Grid container>
           <Grid item xs={12} sm={12} md={12} lg={12} container>
             {otherNews.map((news, index) => (
               <Grid item key={index} xs={12} sm={12} md={12} lg={12}>
-                <News news={news} />
+                <Paper elevation={5} variant="outlined">
+                  <News news={news} />
+                </Paper>
               </Grid>
             ))}
           </Grid>

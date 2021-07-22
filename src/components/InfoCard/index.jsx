@@ -48,13 +48,12 @@ function InfoCard(props) {
 
   return (
     <div>
-      <Grid container spacing={1}>
+      <Grid container>
         {notableNumbers.map((notableNumber, index) => (
           <Grid key={index} item sm={4} xs={4}>
             <DetailCard notableNumber={notableNumber} />{' '}
           </Grid>
         ))}
-        ;
       </Grid>
     </div>
   );
