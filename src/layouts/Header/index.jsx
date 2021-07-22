@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: 'pink',
+    // backgroundColor: 'pink',
   },
 }));
 const drawerWidth = 170;

@@ -14,19 +14,19 @@ function Home(props) {
       <InfoCard />
       <Paper elevation={10}>
         <p className="home__title">{t('homePage.mapTitle')}</p>
-        <Box margin={2}>
+        <Box>
           <WorldMap />
         </Box>
       </Paper>
 
       <p className="home__title">{t('homePage.graphTitle')}</p>
-      <Box margin={2}>
+      <Box>
         <WorldStatistics />
       </Box>
 
       <Paper elevation={10}>
         <p className="home__title">{t('homePage.tableTitle')}</p>
-        <Box margin={2}>
+        <Box>
           <TableStatistics />
         </Box>
       </Paper>

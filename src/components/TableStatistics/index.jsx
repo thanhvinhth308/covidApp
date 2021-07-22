@@ -12,6 +12,7 @@ const columns = [
     field: 'id',
     headerName: 'ID',
     width: 70,
+    sticky: 'true',
     headerAlign: 'center',
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
@@ -121,7 +122,7 @@ function TableStatistics(props) {
     }
   }, []);
   return (
-    <Box style={{ height: 620 }}>
+    <Box className="Statistic__table" style={{ height: 620 }}>
       <DataGrid
         showCellRightBorder={true}
         showColumnRightBorder={true}

@@ -47,7 +47,7 @@ function WorldStatistics(props) {
           7 ngày
         </Button>
       </ButtonGroup>
-      <Grid container spacing={3}>
+      <Grid container>
         <Grid item sm={7} xs={12}>
           <BasicLineChart report={worldReport} />
         </Grid>

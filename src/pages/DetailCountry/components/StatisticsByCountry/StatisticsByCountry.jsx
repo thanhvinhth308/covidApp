@@ -83,14 +83,17 @@ function StatisticsByCountry(props) {
           7 ngày
         </Button>
       </ButtonGroup>
-      <Grid container spacing={3}>
-        <Grid item sm={8} xs={12}>
+      <Grid container>
+        <Grid item sm={6} xs={12}>
           <LineChart report={countryReport?.timeline} />
         </Grid>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={6} xs={12}>
           <CircleChart report={countryReport?.timeline} />
         </Grid>
-        <Grid item sm={12} xs={12}>
+        <Grid item sm={6} xs={12}>
+          <CountryMap countryId={countryId} />
+        </Grid>
+        <Grid item sm={6} xs={12}>
           <CountryMap countryId={countryId} />
         </Grid>
       </Grid>

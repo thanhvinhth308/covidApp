@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Paper } from '@material-ui/core';
 import { Card, Skeleton } from 'antd';
 import React from 'react';
 import './DetailCard.scss';

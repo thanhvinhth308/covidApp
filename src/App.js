@@ -1,3 +1,6 @@
+import { ThemeProvider } from '@material-ui/core';
+import { createMuiTheme } from '@material-ui/core/styles';
+
 import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
@@ -13,32 +16,38 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 
-const lightTheme = {
-  textColor: '#fff',
-  background: '#000',
-};
+// const lightTheme = {
+//   textColor: '#fff',
+//   background: '#000',
+// };
 
-const darkTheme = {
-  textColor: '#000',
-  background: '#fff',
-};
+// const darkTheme = {
+//   textColor: '#000',
+//   background: '#fff',
+// };
 
 function App(props) {
-  const Global = createGlobalStyle`
-  body {
-    background-color: ${({ theme }) => theme.background};
-    transition: all 200ms;
-    color:${({ theme }) => theme.background}
-  }
-`;
-  const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  };
-  const [theme, setTheme] = useState('light');
+  const theme = createMuiTheme({
+    palette: {
+      type: 'dark',
+    },
+  });
+  console.log('🚀 ~ file: App.js ~ line 35 ~ App ~ theme', theme);
+  //   const Global = createGlobalStyle`
+  //   body {
+  //     background-color: ${({ theme }) => theme.background};
+  //     transition: all 200ms;
+  //     color:${({ theme }) => theme.background}
+  //   }
+  // `;
+  //   const toggleTheme = () => {
+  //     if (theme === 'light') {
+  //       setTheme('dark');
+  //     } else {
+  //       setTheme('light');
+  //     }
+  //   };
+  //   const [theme, setTheme] = useState('light');
   return (
     // <div className="App">
     <div className="App">
@@ -49,14 +58,16 @@ function App(props) {
       </button> */}
       {/* <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}> */}
       {/* <Global /> */}
-      <Switch>
-        <PrivateRouter exact path="/" component={Home} />
-        <PrivateRouter exact path="/profile" component={Profile} />
-        <PrivateRouter exact path="/countries/:countryName" component={DetailCountry} />
-        <AuthRouter exact path="/login" component={Login} />
-        <PublicRouter exact path="/news" component={AllNews} />
-        <Route component={NotFound} />
-      </Switch>
+      <ThemeProvider theme={theme}>
+        <Switch>
+          <PrivateRouter exact path="/" component={Home} />
+          <PrivateRouter exact path="/profile" component={Profile} />
+          <PrivateRouter exact path="/countries/:countryName" component={DetailCountry} />
+          <AuthRouter exact path="/login" component={Login} />
+          <PublicRouter exact path="/news" component={AllNews} />
+          <Route component={NotFound} />
+        </Switch>
+      </ThemeProvider>
       {/* </ThemeProvider> */}
       <MessageModal />
     </div>
