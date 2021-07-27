@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
-import { checkToken } from '../../utils/localStorage';
+import { checkToken } from '../../utils/helper';
 import Header from '../Header';
 import PublicHeader from '../PublicHeader';
 
@@ -11,7 +11,9 @@ function PublicLayout({ children }) {
     <Box display="flex">
       {checkToken() ? <Header /> : <PublicHeader />}
       <Box width="100%">
-        <Box style={{ width: `100%` }}>{children}</Box>
+        <Box paddingBottom={2} style={{ width: `100%` }}>
+          {children}
+        </Box>
       </Box>
     </Box>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import MainLayout from '../../layouts/MainLayout';
 import { Redirect, Route } from 'react-router-dom';
-import { checkToken } from '../../utils/localStorage';
+import { checkToken } from '../../utils/helper';
 PrivateRouter.propTypes = {};
 
 function PrivateRouter({ component: Component, ...rest }) {
@@ -9,7 +9,7 @@ function PrivateRouter({ component: Component, ...rest }) {
     <div>
       <Route
         {...rest}
-        render={props =>
+        render={(props) =>
           checkToken() ? (
             <MainLayout>
               <Component {...props} />

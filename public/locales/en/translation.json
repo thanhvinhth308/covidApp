@@ -1,30 +1,67 @@
 {
-    "infoCard": {
+    "allNews":{
+      "infoCard": {
         "cases": "CASES",
         "recovered": "RECOVERED",
-        "deaths": "DEATHS"
+        "deaths": "DEATHS",
+        "rate":"cases/day"
+      },
+      "chip": {
+        "news": "News",
+        "covid": "Covid19",
+        "sport": "Sport"
+      }
     },
     "homePage":{
         "mapTitle":"World covid map",
         "graphTitle":"World covid graph",
         "tableTitle":"Covid statistics by country"
       },
-      "form":{
-        "loginTitle":"Login",
-        "registerTitle":"Register",
-        "username":"Username",
-        "password":"Password",
-        "confirmPassWord":"Confirm Password",
-        "minMes":"please at least 6 character",
-        "reqMes":"please enter",
-        "isNotMatchMes":"password does not match"
+    "detailPage":{
+      "titleSelect":"Choose a country",
+      "infoDateData":"Data updated to"
+    },
+    "form":{
+      "loginTitle":"Login",
+      "registerTitle":"Register",
+      "username":"Username",
+      "password":"Password",
+      "confirmPassWord":"Confirm Password",
+      "minMes":"please at least 6 character",
+      "reqMes":"please enter",
+      "isNotMatchMes":"password does not match"
+    },
+    "header":{
+      "home":"Home",
+      "news":"News",
+      "country":"Country",
+      "myAccount":"My account",
+      "logout":"Logout"
+    },
+    "chart":{
+      "circle":{
+        "cases":"Cases",
+        "recovered":"Recovered",
+        "deaths":"Deaths"
       },
-      "header":{
-          "home":"Home",
-          "news":"News",
-          "country":"Country",
-          "myAccount":"My account",
-          "logout":"Logout"
+      "line":{
+        "cases":"Cases",
+        "recovered":"Recovered",
+        "deaths":"Deaths"
+      },
+      "basicLine":{
+        "cases":"Cases",
+        "recovered":"Recovered",
+        "deaths":"Deaths"
+      },
+      "area":{
+        "cases":"Cases",
+        "recovered":"Recovered",
+        "deaths":"Deaths"
+      },
+      "countryMap":{
+        "population":"Population"
       }
+    }
 
 }

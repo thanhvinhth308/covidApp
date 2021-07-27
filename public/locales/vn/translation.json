@@ -1,13 +1,26 @@
 {
-  "infoCard": {
-      "cases": "CA BỆNH",
-      "recovered": "CA KHỎI",
-      "deaths": "TỬ VONG"
+
+  "allNews":{
+      "infoCard": {
+        "cases": "CA BỆNH",
+        "recovered": "KHỎI BỆNH",
+        "deaths": "TỬ VONG",
+        "rate":"ca/ngày"
+      },
+      "chip": {
+        "news": "Tin tức",
+        "covid": "Covid19",
+        "sport": "Thể thao"
+      }
   },
   "homePage":{
     "mapTitle":"Bản đồ Covid thế giới",
     "graphTitle":"Biểu đồ Covid thế giới",
     "tableTitle":"Bảng thống kê Covid theo từng nước"
+  },
+  "detailPage":{
+    "titleSelect":"Chọn quốc gia",
+    "infoDateData":"Dữ liệu cập nhật đến ngày"
   },
 "form":{
   "loginTitle":"Đăng nhập",
@@ -25,5 +38,30 @@
   "country":"Quốc gia",
   "myAccount":"Tài khoản",
   "logout":"Đăng xuất"
+},
+"chart":{
+  "circle":{
+    "cases":"Số ca nhiễm",
+    "recovered":"Số ca khỏi",
+    "deaths":"Số ca chết"
+  },
+  "line":{
+    "cases":"Số ca nhiễm",
+    "recovered":"Số ca khỏi",
+    "deaths":"Số ca chết"
+  },
+  "basicLine":{
+    "cases":"Số ca nhiễm",
+    "recovered":"Số ca khỏi",
+    "deaths":"Số ca chết"
+  },
+  "area":{
+    "cases":"Số ca nhiễm",
+    "recovered":"Số ca khỏi",
+    "deaths":"Số ca chết"
+  },
+  "countryMap":{
+    "population":"Dân số"
+  }
 }
 }

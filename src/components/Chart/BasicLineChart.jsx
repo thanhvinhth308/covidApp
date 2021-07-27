@@ -1,21 +1,24 @@
 import Highchart from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { themeColor } from '../../utils/constants';
 BasicLineChart.propTypes = {};
 
-const generateOptions = data => {
+const generateOptions = (data, darkMode) => {
   return {
     chart: {
-      height: 400
+      height: 400,
+      backgroundColor: darkMode ? themeColor.gray : themeColor.light
     },
     title: {
       text: null
     },
     xAxis: {
-      categories: data.cases && Object.keys(data.cases),
+      categories: data?.cases && Object.keys(data.cases),
       crosshair: true
     },
-    colors: ['#c9302c', 'gray', '#28a745'],
+    colors: ['#cb2b83', '#164c7e', '#49aa19'],
     yAxis: {
       min: 0,
       title: {
@@ -39,16 +42,16 @@ const generateOptions = data => {
     },
     series: [
       {
-        name: 'Số ca nhiễm',
-        data: data.cases && Object.values(data.cases)
+        name: 'Cases',
+        data: data?.cases && Object.values(data.cases)
       },
       {
-        name: 'Số ca chết',
-        data: data.deaths && Object.values(data.deaths)
+        name: 'Deaths',
+        data: data?.deaths && Object.values(data.deaths)
       },
       {
-        name: 'Số ca khỏi',
-        data: data.recovered && Object.values(data.recovered)
+        name: 'Recovered',
+        data: data?.recovered && Object.values(data.recovered)
       }
     ]
   };
@@ -57,10 +60,11 @@ const generateOptions = data => {
 function BasicLineChart(props) {
   const { report } = props;
   const [options, setOptions] = useState({});
+  const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
 
   useEffect(() => {
-    setOptions(generateOptions(report));
-  }, [report]);
+    setOptions(generateOptions(report, darkMode));
+  }, [report, darkMode]);
   return (
     <div>
       <HighchartsReact highcharts={Highchart} options={options} />

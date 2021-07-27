@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import PasswordField from '../../components/FormControls/PasswordField';
 import TextInputField from '../../components/FormControls/TextInputField';
 LoginForm.propTypes = {};
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(5),
     minHeight: '60vh'
@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     margin: theme.spacing(2, 0, 4, 0),
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: '20px'
   },
   submit: {
     margin: theme.spacing(5, 0, 3, 0)
@@ -50,7 +51,7 @@ function LoginForm(props) {
     password: yup.string().min(6, t('form.minMes')).required(t('form.reqMes')).typeError(t('form.reqMes'))
   });
 
-  const handleDrinkAddToCart = formValue => {
+  const handleDrinkAddToCart = (formValue) => {
     if (onAccountCheck) {
       onAccountCheck(formValue);
     }
@@ -59,13 +60,11 @@ function LoginForm(props) {
   return (
     <div className={classes.root}>
       <Avatar className={classes.pink} />
-      <Typography className={classes.title} component="h3" variant="h5">
-        {t('form.loginTitle')}
-      </Typography>
+      <Typography className={classes.title}>{t('form.loginTitle')}</Typography>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={formValue => handleDrinkAddToCart(formValue)}
+        onSubmit={(formValue) => handleDrinkAddToCart(formValue)}
       >
         {() => {
           return (

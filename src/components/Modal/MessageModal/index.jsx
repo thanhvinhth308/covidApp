@@ -1,12 +1,11 @@
+import { Modal } from 'antd';
 import React from 'react';
-import { Modal, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { GlobalActions } from '../../../redux/rootAction';
-import { useHistory } from 'react-router-dom';
 
 function MessageModal(props) {
   const dispatch = useDispatch();
-  const visible = useSelector((state) => state.GlobalReducer.isGetApiSuccess);
+  const visible = useSelector((state) => state.GlobalReducer.isErrorHandler);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState('Get Data failed,please try again');
 
@@ -14,12 +13,12 @@ function MessageModal(props) {
     setModalText('Please wait a minutes');
     setConfirmLoading(true);
     setTimeout(() => {
-      dispatch(GlobalActions.changeApiStatus(false));
+      dispatch(GlobalActions.toggleErrorHandler(false));
       setConfirmLoading(false);
     }, 1000);
   };
   const handleCancel = () => {
-    dispatch(GlobalActions.changeApiStatus(false));
+    dispatch(GlobalActions.toggleErrorHandler(false));
   };
 
   return (

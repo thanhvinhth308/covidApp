@@ -2,9 +2,10 @@ import { Avatar, Box, makeStyles, TextField } from '@material-ui/core';
 import { deepOrange } from '@material-ui/core/colors';
 import { Autocomplete } from '@material-ui/lab';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 CountrySelector.propTypes = {};
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   square: {
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500]
@@ -19,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 }));
 function CountrySelector(props) {
   const { onCountryChange, countries = [] } = props;
+  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
@@ -30,8 +32,8 @@ function CountrySelector(props) {
       }}
       onChange={onCountryChange}
       autoHighlight
-      getOptionLabel={option => option.country}
-      renderOption={option => (
+      getOptionLabel={(option) => option.country}
+      renderOption={(option) => (
         <React.Fragment>
           <span>
             <Avatar className={classes.square} src={option?.flag} />
@@ -39,11 +41,11 @@ function CountrySelector(props) {
           {option?.country}
         </React.Fragment>
       )}
-      renderInput={params => (
+      renderInput={(params) => (
         <Box>
           <TextField
             {...params}
-            label="Choose a country"
+            label={t('detailPage.titleSelect')}
             variant="outlined"
             color="secondary"
             fullWidth

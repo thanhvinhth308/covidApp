@@ -14,9 +14,7 @@ function Login(props) {
   const handleAccountCheck = async (formValues) => {
     const { username, password } = formValues;
     const allAccount = JSON.parse(localStorage.getItem('account'));
-    const index = allAccount.findIndex(
-      (item) => item.username === username && item.password === password
-    );
+    const index = allAccount.findIndex((item) => item.username === username && item.password === password);
 
     if (index > -1) {
       setMessage('');

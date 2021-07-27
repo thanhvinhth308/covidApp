@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoading: false,
-  isGetApiSuccess: false,
+  isErrorHandler: false,
+  darkTheme: false
 };
 
 const globalSlice = createSlice({
@@ -12,10 +13,13 @@ const globalSlice = createSlice({
     toggleLoading(state, action) {
       state.isLoading = action.payload;
     },
-    changeApiStatus(state, action) {
-      state.isGetApiSuccess = action.payload;
+    toggleErrorHandler(state, action) {
+      state.isErrorHandler = action.payload;
     },
-  },
+    changeTheme(state, action) {
+      state.darkTheme = action.payload;
+    }
+  }
 });
 
 const { actions, reducer } = globalSlice;

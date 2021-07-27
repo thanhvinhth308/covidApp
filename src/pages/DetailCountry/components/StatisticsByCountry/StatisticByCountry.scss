@@ -1,0 +1,57 @@
+.statisticsByCountry__content {
+  .ant-picker {
+    background-color: gray;
+    .ant-picker-input {
+      input {
+        color: aqua;
+      }
+    }
+    .ant-picker-separator {
+      color: white;
+    }
+    .ant-picker-suffix {
+      color: white;
+    }
+    .ant-picker-clear {
+      display: none;
+    }
+  }
+}
+.ant-picker-panel-container {
+  background-color: gray;
+  .ant-picker-header {
+    color: white;
+  }
+
+  .ant-picker-body {
+    .ant-picker-content {
+      th {
+        color: white;
+      }
+      .ant-picker-cell.ant-picker-cell-in-view.ant-picker-cell-range-start {
+        background-color: rgb(6, 88, 84);
+      }
+
+      .ant-picker-cell-in-view.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single)::before,
+      .ant-picker-cell-in-view.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single)::before {
+        background-color: rgb(6, 88, 84);
+      }
+
+      .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+      .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+      .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+        background-color: rgb(6, 88, 84);
+      }
+
+      .ant-picker-cell-in-view.ant-picker-cell-in-range::before {
+        background-color: rgb(6, 88, 84);
+      }
+      .ant-picker-cell-inner {
+        color: rgb(3, 255, 242);
+      }
+      .ant-picker-cell-disabled::before {
+        background-color: rgb(104, 96, 96);
+      }
+    }
+  }
+}

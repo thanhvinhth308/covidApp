@@ -1,147 +1,152 @@
 .card__cases {
   padding: 10px;
-  .ant-card {
+  .MuiPaper-root.MuiCard-root.MuiPaper-elevation1.MuiPaper-rounded {
+    overflow: hidden;
     margin: 10px 0;
     font-size: 0.8rem;
     letter-spacing: 1px;
     text-align: center;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  }
-
-  .ant-card-head {
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 0;
-    background-color: rgb(231, 170, 170);
-    .ant-card-head-title {
-      color: red;
+    .MuiCardHeader-root {
       font-weight: bold;
-      font-size: 15px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0;
+      background-color: #f8a8cc;
+      .MuiCardHeader-content {
+        .MuiTypography-root.MuiCardHeader-title.MuiTypography-h5.MuiTypography-displayBlock {
+          font-size: 17px;
+          font-weight: bold;
+          color: #cb2b83;
+        }
+      }
     }
-  }
-
-  .ant-card-body {
-    padding: 5px 10px;
-    p {
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: red;
-    }
-    > p:nth-child(1) {
-      font-size: 1rem;
-    }
-    > p:nth-child(2) {
-      font-size: 0.8rem;
-      line-height: 0.7rem;
-    }
-    > p:nth-child(3) {
-      font-size: 0.5rem;
-    }
-    p {
-      span {
-        font-size: 0.6rem;
-        font-weight: normal;
+    .MuiCardContent-root {
+      padding: 5px 10px;
+      p {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #cb2b83;
+      }
+      > p:nth-child(1) {
+        font-size: 1rem;
+      }
+      > p:nth-child(2) {
+        font-size: 0.8rem;
+        line-height: 0.7rem;
+      }
+      > p:nth-child(3) {
+        font-size: 0.5rem;
+      }
+      p {
+        span {
+          font-size: 0.6rem;
+          font-weight: normal;
+        }
       }
     }
   }
 }
+
 .card__deaths {
   padding: 10px;
-  .ant-card {
+  .MuiPaper-root.MuiCard-root.MuiPaper-elevation1.MuiPaper-rounded {
+    overflow: hidden;
     margin: 10px 0;
     font-size: 0.8rem;
     letter-spacing: 1px;
     text-align: center;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  }
-
-  .ant-card-head {
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 0;
-    background-color: rgba(128, 128, 128, 0.295);
-    .ant-card-head-title {
-      color: rgb(73, 71, 71);
+    .MuiCardHeader-root {
       font-weight: bold;
-      font-size: 15px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0;
+      background-color: #726d6d;
+      .MuiCardHeader-content {
+        .MuiTypography-root.MuiCardHeader-title.MuiTypography-h5.MuiTypography-displayBlock {
+          font-size: 17px;
+          font-weight: bold;
+          color: #afabab;
+        }
+      }
     }
-  }
-
-  .ant-card-body {
-    padding: 5px 10px;
-    p {
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: rgb(73, 71, 71);
-    }
-    > p:nth-child(1) {
-      font-size: 1rem;
-    }
-    > p:nth-child(2) {
-      font-size: 0.8rem;
-      line-height: 0.7rem;
-    }
-    > p:nth-child(3) {
-      font-size: 0.5rem;
-    }
-    p {
-      span {
-        font-size: 0.6rem;
-        font-weight: normal;
+    .MuiCardContent-root {
+      padding: 5px 10px;
+      p {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #afabab;
+      }
+      > p:nth-child(1) {
+        font-size: 1rem;
+      }
+      > p:nth-child(2) {
+        font-size: 0.8rem;
+        line-height: 0.7rem;
+      }
+      > p:nth-child(3) {
+        font-size: 0.5rem;
+      }
+      p {
+        span {
+          font-size: 0.6rem;
+          font-weight: normal;
+        }
       }
     }
   }
 }
 .card__recovered {
   padding: 10px;
-  .ant-card {
+  .MuiPaper-root.MuiCard-root.MuiPaper-elevation1.MuiPaper-rounded {
+    overflow: hidden;
     margin: 10px 0;
     font-size: 0.8rem;
     letter-spacing: 1px;
     text-align: center;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  }
-
-  .ant-card-head {
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 0;
-    background-color: rgba(172, 255, 47, 0.295);
-    .ant-card-head-title {
-      color: rgb(5, 107, 47);
+    .MuiCardHeader-root {
       font-weight: bold;
-      font-size: 15px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0;
+      background-color: #e4f88b;
+      .MuiCardHeader-content {
+        .MuiTypography-root.MuiCardHeader-title.MuiTypography-h5.MuiTypography-displayBlock {
+          font-size: 17px;
+          font-weight: bold;
+          color: #8bbb11;
+        }
+      }
     }
-  }
-
-  .ant-card-body {
-    padding: 5px 10px;
-    p {
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: rgb(5, 107, 47);
-    }
-    > p:nth-child(1) {
-      font-size: 1rem;
-    }
-    > p:nth-child(2) {
-      font-size: 0.8rem;
-      line-height: 0.7rem;
-    }
-    > p:nth-child(3) {
-      font-size: 0.5rem;
-    }
-    p {
-      span {
-        font-size: 0.6rem;
-        font-weight: normal;
+    .MuiCardContent-root {
+      padding: 5px 10px;
+      p {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #8bbb11;
+      }
+      > p:nth-child(1) {
+        font-size: 1rem;
+      }
+      > p:nth-child(2) {
+        font-size: 0.8rem;
+        line-height: 0.7rem;
+      }
+      > p:nth-child(3) {
+        font-size: 0.5rem;
+      }
+      p {
+        span {
+          font-size: 0.6rem;
+          font-weight: normal;
+        }
       }
     }
   }
+  padding: 10px;
 }

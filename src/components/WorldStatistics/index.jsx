@@ -12,7 +12,6 @@ function WorldStatistics(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [worldReport, setWorldReport] = useState([]);
   const [time, setTime] = useState(45);
-  const [reportType, setReportType] = useState(45);
   const dispatch = useDispatch();
 
   const handleTimeChange = (time) => {
@@ -28,22 +27,22 @@ function WorldStatistics(props) {
         setIsLoading(false);
       })
       .catch((error) => {
-        dispatch(GlobalActions.changeApiStatus(true));
+        dispatch(GlobalActions.toggleErrorHandler(true));
         setIsLoading(false);
       });
   }, [time]);
 
   return (
     <div>
-      {isLoading && <LinearProgress />}
+      {isLoading && <LinearProgress color="secondary" />}
       <ButtonGroup size="small" style={{ display: 'flex', justifyContent: 'center' }}>
-        <Button color={reportType === 45 ? 'secondary' : ''} onClick={() => handleTimeChange(45)}>
+        <Button color={time === 45 ? 'secondary' : ''} onClick={() => handleTimeChange(45)}>
           45 ngày
         </Button>
-        <Button color={reportType === 30 ? 'secondary' : ''} onClick={() => handleTimeChange(30)}>
+        <Button color={time === 30 ? 'secondary' : ''} onClick={() => handleTimeChange(30)}>
           30 ngày
         </Button>
-        <Button color={reportType === 7 ? 'secondary' : ''} onClick={() => handleTimeChange(7)}>
+        <Button color={time === 7 ? 'secondary' : ''} onClick={() => handleTimeChange(7)}>
           7 ngày
         </Button>
       </ButtonGroup>
