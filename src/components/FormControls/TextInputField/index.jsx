@@ -16,13 +16,14 @@ function TextInputField(props) {
         fullWidth
         id={name}
         label={label}
+        // placeholder={label}
         margin="normal"
         type="text"
         autoComplete="current-password"
         invalid={String(!!showError)}
         {...field}
       />
-      <ErrorMessage name={name}>{msg => <Typography color="secondary">{msg}</Typography>}</ErrorMessage>
+      <ErrorMessage name={name}>{(msg) => <Typography color="secondary">{msg}</Typography>}</ErrorMessage>
     </div>
   );
 }

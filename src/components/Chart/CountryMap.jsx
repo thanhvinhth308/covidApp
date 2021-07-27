@@ -3,20 +3,22 @@ import HighchartsReact from 'highcharts-react-official';
 import highchartsMap from 'highcharts/modules/map';
 import { cloneDeep } from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { themeColor } from '../../utils/constants';
 CountryMap.propTypes = {};
 
 highchartsMap(Highchart);
 
 const initOption = {
   chart: {
-    height: '500',
+    height: '500'
   },
   title: {
-    text: null,
+    text: null
   },
 
   mapNavigation: {
-    enabled: true,
+    enabled: true
   },
 
   colorAxis: {
@@ -26,70 +28,71 @@ const initOption = {
       [0.4, '#cb2b83'],
       [0.6, '#cb2b83'],
       [0.8, '#a02669'],
-      [1, '#551c3b'],
-    ],
+      [1, '#551c3b']
+    ]
   },
 
   legend: {
     layout: 'bottom',
     align: 'left',
-    verticalAlign: 'bottom',
+    verticalAlign: 'bottom'
   },
 
   series: [
     {
       mapData: {},
       joinBy: ['hc-key', 'key'],
-      name: 'Dan so',
-    },
-  ],
+      name: 'Population'
+    }
+  ]
 };
 
 function CountryMap(props) {
   const { countryId } = props;
+
   const [options, setOptions] = useState({});
   const [mapData, setMapData] = useState(null);
+  const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
   const chartRef = useRef(null);
 
   useEffect(() => {
     if (countryId) {
-      import(`@highcharts/map-collection/countries/${countryId}/${countryId}-all.geo.json`).then(
-        (res) => {
-          const fakeData = res.features.map((feature, index) => ({
-            key: feature.properties['hc-key'],
-            value: index,
-          }));
-          setMapData(res);
-          setOptions({
-            ...initOption,
-            series: [
-              {
-                ...initOption.series[0],
-                mapData: res,
-                data: fakeData,
-              },
-            ],
-          });
-        }
-      );
+      import(`@highcharts/map-collection/countries/${countryId}/${countryId}-all.geo.json`).then((res) => {
+        const fakeData = res.features.map((feature, index) => ({
+          key: feature.properties['hc-key'],
+          value: index
+        }));
+        setMapData(res);
+        setOptions({
+          ...initOption,
+          chart: {
+            backgroundColor: darkMode ? themeColor.gray : themeColor.light,
+            height: '400'
+          },
+          series: [
+            {
+              ...initOption.series[0],
+              mapData: res,
+              data: fakeData
+            }
+          ]
+        });
+      });
     }
-  }, [countryId]);
+  }, [countryId, darkMode]);
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
       chartRef.current.chart.series[0]?.update({
-        mapData,
+        mapData
       });
     }
   }, [mapData]);
   return (
-    <HighchartsReact
-      highcharts={Highchart}
-      options={cloneDeep(options)}
-      constructorType="mapChart"
-      ref={chartRef}
-    />
+    <div>
+      <HighchartsReact highcharts={Highchart} options={cloneDeep(options)} constructorType="mapChart" ref={chartRef} />
+    </div>
   );
 }
 
-export default CountryMap;
+export default React.memo(CountryMap);

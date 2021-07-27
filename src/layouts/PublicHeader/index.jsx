@@ -1,6 +1,17 @@
 // import AppBar from '../components/AppBar';
 // import Toolbar, { styles as toolbarStyles } from '../components/Toolbar';
-import { AppBar, Button, Dialog, DialogContent, IconButton, Toolbar } from '@material-ui/core';
+import {
+  AppBar,
+  Button,
+  Dialog,
+  DialogContent,
+  FormControl,
+  IconButton,
+  MenuItem,
+  Select,
+  Switch,
+  Toolbar
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Close } from '@material-ui/icons';
 import PropTypes from 'prop-types';
@@ -8,24 +19,16 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Login from '../../components/Login';
 import Register from '../../components/Register';
+import i18next from 'i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { GlobalActions } from '../../redux/rootAction';
 
-const styles = theme => ({
+const styles = (theme) => ({
   appBar: {
-    backgroundColor: '#28282a'
+    backgroundColor: '#454242'
   },
-  title: {
-    fontSize: 24
-  },
-  // placeholder: toolbarStyles(theme).root,
-  placeholder: {},
   toolbar: {
     justifyContent: 'space-between'
-  },
-  left: {
-    flex: 1
-  },
-  leftLinkActive: {
-    color: theme.palette.common.white
   },
   right: {
     flex: 1,
@@ -37,9 +40,6 @@ const styles = theme => ({
     fontSize: 16,
     color: theme.palette.common.white,
     marginLeft: theme.spacing(3)
-  },
-  linkSecondary: {
-    color: theme.palette.secondary.main
   }
 });
 
@@ -47,8 +47,14 @@ function PublicHeader(props) {
   const { classes } = props;
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
+  const language = localStorage.getItem('i18nextLng');
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
+  const handleThemeChange = () => {
+    dispatch(GlobalActions.changeTheme(!darkMode));
+  };
   const handleLoginOpen = () => {
     setIsLoginOpen(true);
   };
@@ -61,12 +67,34 @@ function PublicHeader(props) {
   const handleRegisterClose = () => {
     setIsRegisterOpen(false);
   };
+  const handleLanguageChange = (e) => {
+    i18next.changeLanguage(e.target.value);
+    // setLanguage(e.target.value);
+  };
 
   return (
     <div>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.right}>
+            <FormControl>
+              <Select
+                onChange={handleLanguageChange}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
+                defaultValue={language}
+              >
+                <MenuItem value="en">EN</MenuItem>
+                <MenuItem value="vn">VN</MenuItem>
+              </Select>
+            </FormControl>
+            <Switch
+              checked={darkMode}
+              onChange={handleThemeChange}
+              name="checkedA"
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+              color="secondary"
+            />
             <Button color="inherit" onClick={handleLoginOpen}>
               {t('form.loginTitle')}
             </Button>
@@ -75,6 +103,7 @@ function PublicHeader(props) {
             </Button>
           </div>
         </Toolbar>
+
         <Dialog
           open={isLoginOpen}
           onClose={handleLoginClose}
@@ -91,6 +120,7 @@ function PublicHeader(props) {
             </>
           </DialogContent>
         </Dialog>
+
         <Dialog
           open={isRegisterOpen}
           onClose={handleRegisterClose}
@@ -103,7 +133,7 @@ function PublicHeader(props) {
           </IconButton>
           <DialogContent>
             <>
-              <Register OnRegisterClose={handleRegisterClose} />
+              <Register onLoginOpen={handleLoginOpen} onRegisterClose={handleRegisterClose} />
             </>
           </DialogContent>
         </Dialog>

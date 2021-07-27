@@ -5,18 +5,21 @@ import RegisterForm from '../../forms/RegisterForm';
 Register.propTypes = {};
 
 function Register(props) {
-  const { OnRegisterClose } = props;
+  const { onRegisterClose, onLoginOpen } = props;
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleAccountRegister = async formValues => {
+  const handleAccountRegister = async (formValues) => {
     const { username, password } = formValues;
     const allAccount = JSON.parse(localStorage.getItem('account'));
     if (allAccount) {
       const newAllAccount = [...allAccount, { username: username, password: password }];
       localStorage.setItem('account', JSON.stringify(newAllAccount));
       enqueueSnackbar('Tạo tài khoản thành công', { variant: 'success' });
-      if (OnRegisterClose) {
-        OnRegisterClose();
+      if (onRegisterClose) {
+        onRegisterClose();
+      }
+      if (onLoginOpen) {
+        onLoginOpen();
       }
     } else {
       localStorage.setItem('account', JSON.stringify([{ username: username, password: password }]));

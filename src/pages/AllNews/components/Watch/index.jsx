@@ -2,7 +2,7 @@ import { Paper } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import Clock from 'react-clock';
 import 'react-clock/dist/Clock.css';
-
+import './Watch.scss';
 function Watch(props) {
   const [value, setValue] = useState(new Date());
   useEffect(() => {
@@ -14,7 +14,7 @@ function Watch(props) {
   }, []);
 
   return (
-    <Paper>
+    <Paper elevation={3} variant="outlined" style={{ color: 'red' }} className="watch__root">
       <Clock
         value={value}
         secondHandWidth={3}
@@ -23,6 +23,7 @@ function Watch(props) {
         hourHandWidth={6}
         hourMarksWidth={8}
         size={200}
+        className="watch__content"
       />
     </Paper>
   );

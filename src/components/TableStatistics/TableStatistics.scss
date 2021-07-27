@@ -1,49 +1,16 @@
-.MuiBox-root.MuiBox-root-31 {
-  text-align: center;
-  .MuiDataGrid-root.MuiDataGrid-root {
-    text-align: center;
-    .MuiDataGrid-columnsContainer {
-      background-color: red;
-      color: white;
-      font-weight: bold;
-      font-family: 'Roboto Slab', serif;
-      width: 100%;
-      .MuiDataGrid-columnHeaderDraggableContainer {
-        .MuiDataGrid-columnHeaderTitleContainer {
-        }
-        .MuiDataGrid-sortIcon {
-          color: white;
-          font-weight: bold;
-        }
-      }
-    }
-    .MuiDataGrid-viewport {
-      font-weight: bold;
-      font-family: 'Roboto Slab', serif;
-    }
+.Statistic__table {
+  .MuiDataGrid-columnHeader {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+  }
+  .MuiIconButton-label {
+    font-weight: bold;
+  }
+  .MuiDataGrid-columnHeader--alignRight {
+    background-color: red;
+  }
+  .MuiDataGrid-cell:nth-child(1) {
+    // background-color: red;
   }
 }
-
-// .Statistic__table {
-//   // position: relative;
-
-//   .Mui-even.MuiDataGrid-row {
-//     position: relative;
-//     .MuiDataGrid-cell.MuiDataGrid-cell--withRenderer.MuiDataGrid-cell--textLeft.MuiDataGrid-withBorder:nth-child(1) {
-//       color: red;
-//       background-color: white;
-//       position: sticky;
-//       position: -webkit-sticky;
-//       left: 0;
-//     }
-//   }
-//   .Mui-odd.MuiDataGrid-row {
-//     .MuiDataGrid-cell.MuiDataGrid-cell--withRenderer.MuiDataGrid-cell--textLeft.MuiDataGrid-withBorder:nth-child(1) {
-//       color: red;
-//       background-color: white;
-//       position: sticky;
-//       position: -webkit-sticky;
-//       left: 0;
-//     }
-//   }
-// }

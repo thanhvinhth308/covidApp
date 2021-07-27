@@ -1,11 +1,10 @@
 import { ThemeProvider } from '@material-ui/core';
-import { createMuiTheme } from '@material-ui/core/styles';
-
-import { useState } from 'react';
+import { createTheme } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components';
 import './App.css';
 import AuthRouter from './components/AuthRouter';
+import GlobalLoading from './components/GlobalLoading';
 import Login from './components/Login';
 import MessageModal from './components/Modal/MessageModal';
 import PrivateRouter from './components/PrivateRouter';
@@ -16,48 +15,17 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 
-// const lightTheme = {
-//   textColor: '#fff',
-//   background: '#000',
-// };
-
-// const darkTheme = {
-//   textColor: '#000',
-//   background: '#fff',
-// };
-
 function App(props) {
-  const theme = createMuiTheme({
+  const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
+  const theme = createTheme({
     palette: {
-      type: 'dark',
-    },
+      type: darkMode ? 'dark' : 'light'
+    }
   });
-  console.log('🚀 ~ file: App.js ~ line 35 ~ App ~ theme', theme);
-  //   const Global = createGlobalStyle`
-  //   body {
-  //     background-color: ${({ theme }) => theme.background};
-  //     transition: all 200ms;
-  //     color:${({ theme }) => theme.background}
-  //   }
-  // `;
-  //   const toggleTheme = () => {
-  //     if (theme === 'light') {
-  //       setTheme('dark');
-  //     } else {
-  //       setTheme('light');
-  //     }
-  //   };
-  //   const [theme, setTheme] = useState('light');
+
   return (
-    // <div className="App">
     <div className="App">
-      {/* <GlobalLoading /> */}
-      {/* change theme
-      <button style={{ marginTop: '80px' }} onClick={toggleTheme}>
-        Toggle Theme
-      </button> */}
-      {/* <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}> */}
-      {/* <Global /> */}
+      <GlobalLoading />
       <ThemeProvider theme={theme}>
         <Switch>
           <PrivateRouter exact path="/" component={Home} />
@@ -68,11 +36,9 @@ function App(props) {
           <Route component={NotFound} />
         </Switch>
       </ThemeProvider>
-      {/* </ThemeProvider> */}
       <MessageModal />
     </div>
   );
 }
 
-// export default withTranslation('common')(App);
 export default App;

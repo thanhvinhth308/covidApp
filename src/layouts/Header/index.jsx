@@ -15,8 +15,9 @@ import {
   Menu,
   MenuItem,
   Select,
+  Switch,
   Toolbar,
-  useTheme,
+  useTheme
 } from '@material-ui/core';
 import BurstModeIcon from '@material-ui/icons/BurstMode';
 import HomeIcon from '@material-ui/icons/Home';
@@ -26,58 +27,66 @@ import i18next from 'i18next';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import avatarImage from '../../assets/images/covid/avatar.jpeg';
 import logo from '../../assets/images/covid/logo.jpg';
 import logo2 from '../../assets/images/covid/logo2.jpg';
-import { checkToken } from '../../utils/localStorage';
+import { GlobalActions } from '../../redux/rootAction';
 import './Header.scss';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    display: 'flex',
+    display: 'flex'
   },
   listItem: {
     'MuiListItem-root Mui-selected': {
       backgroundColor: 'yellow!important',
       color: 'red',
       fontWeight: 'bold',
-      fontSize: '30px',
-    },
+      fontSize: '30px'
+    }
   },
   drawer: {
     [theme.breakpoints.up('md')]: {
       width: drawerWidth,
-      flexShrink: 0,
-    },
+      flexShrink: 0
+    }
   },
   appBar: {
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
+      marginLeft: drawerWidth
+    }
   },
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
+      display: 'none'
+    }
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: drawerWidth
     // backgroundColor: 'pink',
-  },
+  }
 }));
 const drawerWidth = 170;
 function Header(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(null);
-  const [language, setLanguage] = useState(localStorage.getItem('i18nextLng'));
+  // const [language, setLanguage] = useState(localStorage.getItem('i18nextLng'));
   const history = useHistory();
   const match = useRouteMatch();
+  const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
+  const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation();
   const classes = useStyles();
+  const language = localStorage.getItem('i18nextLng');
+
+  const handleThemeChange = () => {
+    dispatch(GlobalActions.changeTheme(!darkMode));
+  };
 
   const navigateHomePage = () => {
     history.push('/');
@@ -105,7 +114,7 @@ function Header(props) {
   };
   const handleLanguageChange = (e) => {
     i18next.changeLanguage(e.target.value);
-    setLanguage(e.target.value);
+    // setLanguage(e.target.value);
   };
 
   const { window } = props;
@@ -119,50 +128,38 @@ function Header(props) {
     <div className={classes.listItem}>
       <Image width="100%" src={logo2} />
       <Divider />
-      {checkToken() && (
-        <List>
-          <ListItem
-            button
-            key={t('header.home')}
-            onClick={navigateHomePage}
-            selected={match.path === '/'}
-          >
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary={t('header.home')} />
-          </ListItem>
-        </List>
-      )}
-      <Divider />
       <List>
-        <ListItem
-          button
-          key={t('header.news')}
-          onClick={navigateNewsPage}
-          selected={match.path === '/news'}
-        >
+        <ListItem button key={t('header.home')} onClick={navigateHomePage} selected={match.path === '/'}>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary={t('header.home')} />
+        </ListItem>
+      </List>
+      <Divider />
+
+      <List>
+        <ListItem button key={t('header.news')} onClick={navigateNewsPage} selected={match.path === '/news'}>
           <ListItemIcon>
             <BurstModeIcon />
           </ListItemIcon>
           <ListItemText primary={t('header.news')} />
         </ListItem>
       </List>
-      {checkToken() && (
-        <List>
-          <ListItem
-            button
-            key={t('header.country')}
-            onClick={navigateDetailCountry}
-            selected={match.path === '/countries/:countryName'}
-          >
-            <ListItemIcon>
-              <BurstModeIcon />
-            </ListItemIcon>
-            <ListItemText primary={t('header.country')} />
-          </ListItem>
-        </List>
-      )}
+
+      <List>
+        <ListItem
+          button
+          key={t('header.country')}
+          onClick={navigateDetailCountry}
+          selected={match.path === '/countries/:countryName'}
+        >
+          <ListItemIcon>
+            <BurstModeIcon />
+          </ListItemIcon>
+          <ListItemText primary={t('header.country')} />
+        </ListItem>
+      </List>
     </div>
   );
 
@@ -188,19 +185,25 @@ function Header(props) {
               onChange={handleLanguageChange}
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
-              defaultValue={language}
+              value={language}
             >
               <MenuItem value="en">EN</MenuItem>
               <MenuItem value="vn">VN</MenuItem>
             </Select>
           </FormControl>
-          {checkToken() && (
-            <IconButton onClick={handleMenuOpen} style={{ color: 'white' }}>
-              <Avatar alt="Not found" src={avatarImage} />
-            </IconButton>
-          )}
+          <Switch
+            checked={darkMode}
+            onChange={handleThemeChange}
+            name="checkedA"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+            color="default"
+          />
+          <IconButton onClick={handleMenuOpen} style={{ color: 'white' }}>
+            <Avatar alt="Not found" src={avatarImage} />
+          </IconButton>
         </Toolbar>
       </AppBar>
+
       <Menu
         anchorEl={isMenuOpen}
         keepMounted
@@ -208,17 +211,18 @@ function Header(props) {
         onClose={handleMenuClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'right',
+          horizontal: 'right'
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'right'
         }}
         getContentAnchorEl={null}
       >
         <MenuItem onClick={navigateProfile}>{t('header.myAccount')} </MenuItem>
         <MenuItem onClick={handleLogoutClick}>{t('header.logout')}</MenuItem>
       </Menu>
+
       <nav className={classes.drawer} aria-label="mailbox folders">
         <Hidden xsUp implementation="css">
           <Drawer
@@ -228,10 +232,10 @@ function Header(props) {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             classes={{
-              paper: classes.drawerPaper,
+              paper: classes.drawerPaper
             }}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true // Better open performance on mobile.
             }}
           >
             {drawer}
@@ -240,7 +244,7 @@ function Header(props) {
         <Hidden smDown implementation="css">
           <Drawer
             classes={{
-              paper: classes.drawerPaper,
+              paper: classes.drawerPaper
             }}
             variant="permanent"
             open

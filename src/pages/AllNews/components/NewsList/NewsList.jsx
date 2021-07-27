@@ -1,8 +1,9 @@
 import { Box, Divider, Grid, Paper } from '@material-ui/core';
 import { Image } from 'antd';
 import React from 'react';
-import News from './News';
+import News from '../News/News';
 import './NewsList.scss';
+
 function NewsList(props) {
   const { allNews } = props;
   const trendNews = allNews.slice(0, 1)[0];
@@ -10,7 +11,7 @@ function NewsList(props) {
   const otherNews = allNews.slice(4);
 
   return allNews ? (
-    <Box>
+    <Box className="newList__root">
       <Paper elevation={5} variant="outlined">
         <Grid container>
           <Grid item xs={12} sm={12} md={12} lg={12} container>
@@ -39,7 +40,7 @@ function NewsList(props) {
           </Grid>
         </Grid>
       </Paper>
-      <Divider light />
+      <Divider light className="newList__divider" />
 
       <Paper elevation={5} variant="outlined">
         <Grid container>
@@ -57,6 +58,7 @@ function NewsList(props) {
                     justifyContent="space-between"
                   >
                     <Box>
+                      <Image src={item?.urlToImage} alt="not found" width="100%" height="auto" />
                       <p className="newList__title">{item?.title}</p>
                       <p className="newList__description">{item?.description}</p>
                     </Box>
@@ -68,7 +70,7 @@ function NewsList(props) {
           </Grid>
         </Grid>
       </Paper>
-      <Divider light />
+      <Divider light className="newList__divider" />
 
       <Paper elevation={5} variant="outlined">
         <Grid container>

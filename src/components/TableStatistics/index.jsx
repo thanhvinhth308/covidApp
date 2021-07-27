@@ -12,14 +12,13 @@ const columns = [
     field: 'id',
     headerName: 'ID',
     width: 70,
-    sticky: 'true',
     headerAlign: 'center',
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box textAlign="center" width="100%">
+      <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.id}
       </Box>
-    ),
+    )
   },
 
   {
@@ -29,11 +28,11 @@ const columns = [
     headerAlign: 'center',
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box display="flex" alignItems="center" textAlign="center">
+      <Box display="flex" alignItems="center" textAlign="center" fontWeight="bold">
         <Avatar src={params.row.flag} />
         <div>{params.row.country}</div>
       </Box>
-    ),
+    )
   },
   {
     field: 'continent',
@@ -42,10 +41,10 @@ const columns = [
     headerAlign: 'center',
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box textAlign="center" width="100%">
+      <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.continent}
       </Box>
-    ),
+    )
   },
   {
     field: 'cases',
@@ -55,10 +54,10 @@ const columns = [
     headerAlign: 'center',
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box textAlign="center" width="100%">
+      <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.cases}
       </Box>
-    ),
+    )
   },
   {
     field: 'recovered',
@@ -68,10 +67,10 @@ const columns = [
     width: 200,
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box textAlign="center" width="100%">
+      <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.recovered}
       </Box>
-    ),
+    )
   },
   {
     field: 'deaths',
@@ -81,11 +80,11 @@ const columns = [
     width: 200,
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box textAlign="center" width="100%">
+      <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.deaths}
       </Box>
-    ),
-  },
+    )
+  }
 ];
 
 function TableStatistics(props) {
@@ -97,27 +96,27 @@ function TableStatistics(props) {
   const handleRowClick = (e) => {
     history.push(`/countries/${e.row.country}`);
   };
+  const handleMapData = async () => {
+    setIsLoading(true);
+    const information = await covidApi.getSummaryAllCountry();
+    const informationFilter = information.map((country, index) => ({
+      id: index + 1,
+      flag: country.countryInfo.flag,
+      country: country?.country,
+      continent: country?.continent,
+      cases: country?.cases,
+      recovered: country?.recovered,
+      deaths: country?.deaths
+    }));
+    setIsLoading(false);
+    setInfoCountries(informationFilter);
+  };
 
   useEffect(() => {
-    const handleMapData = async () => {
-      setIsLoading(true);
-      const information = await covidApi.getSummaryAllCountry();
-      const informationFilter = information.map((country, index) => ({
-        id: index + 1,
-        flag: country.countryInfo.flag,
-        country: country?.country,
-        continent: country?.continent,
-        cases: country?.cases,
-        recovered: country?.recovered,
-        deaths: country?.deaths,
-      }));
-      setIsLoading(false);
-      setInfoCountries(informationFilter);
-    };
     try {
       handleMapData();
     } catch (error) {
-      dispatch(GlobalActions.changeApiStatus(true));
+      dispatch(GlobalActions.toggleErrorHandler(true));
       setIsLoading(false);
     }
   }, []);

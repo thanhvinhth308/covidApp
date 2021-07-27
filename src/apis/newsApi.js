@@ -12,6 +12,6 @@ const newApi = {
     const data = await axiosNews.get('/articles');
     return data;
     return data;
-  },
+  }
 };
 export default newApi;

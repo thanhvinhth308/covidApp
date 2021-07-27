@@ -1,29 +1,30 @@
 import Highchart from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { themeColor } from '../../utils/constants';
 LineChart.propTypes = {};
 
-const generateOptions = (data) => {
-  // const categories = data.map((item) => moment(item.Date).format('DD/MM/YYYY'));
-
+const generateOptions = (data, darkMode) => {
   return {
     chart: {
       height: 400,
       type: 'area',
+      backgroundColor: darkMode ? themeColor.gray : themeColor.light
     },
     title: {
-      text: null,
+      text: null
     },
     xAxis: {
       categories: data?.cases && Object.keys(data?.cases),
-      crosshair: true,
+      crosshair: true
     },
-    colors: ['#c9302c', 'gray', '#28a745'],
+    colors: ['#cb2b83', '#164c7e', '#49aa19'],
     yAxis: {
       min: 0,
       title: {
-        text: null,
-      },
+        text: null
+      }
       //   labels: {
       //     align: "right",
       //   },
@@ -35,38 +36,39 @@ const generateOptions = (data) => {
         `<td style="padding:0"><b>{point.y} ca</b></td></tr>`,
       footerFormat: '</table>',
       shared: 'true',
-      useHTML: 'true',
+      useHTML: 'true'
     },
     plotOptions: {
       column: {
         pointPadding: 0.2,
-        borderWidth: 0,
-      },
+        borderWidth: 0
+      }
     },
     series: [
       {
-        name: 'Số ca nhiễm',
-        data: data?.cases && Object.values(data?.cases),
+        name: 'Cases',
+        data: data?.cases && Object.values(data?.cases)
       },
       {
-        name: 'Số ca chết',
-        data: data?.cases && Object.values(data?.deaths),
+        name: 'Deaths',
+        data: data?.cases && Object.values(data?.deaths)
       },
       {
-        name: 'Số ca khỏi',
-        data: data?.cases && Object.values(data?.recovered),
-      },
-    ],
+        name: 'Recovered',
+        data: data?.cases && Object.values(data?.recovered)
+      }
+    ]
   };
 };
 
 function LineChart(props) {
   const { report } = props;
+  const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
   const [options, setOptions] = useState({});
 
   useEffect(() => {
-    setOptions(generateOptions(report));
-  }, [report]);
+    setOptions(generateOptions(report, darkMode));
+  }, [report, darkMode]);
 
   return (
     <div>

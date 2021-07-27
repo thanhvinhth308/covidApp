@@ -3,28 +3,53 @@ import HighchartsReact from 'highcharts-react-official';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { themeColor } from '../../utils/constants';
-CircleChart.propTypes = {};
-
 const generateOptions = (data, darkMode) => {
   return {
     chart: {
+      type: 'column',
       height: 400,
-      backgroundColor: darkMode ? themeColor.gray : themeColor.light,
-      type: 'pie'
+      backgroundColor: darkMode ? themeColor.gray : themeColor.light
     },
     title: {
       text: null
     },
+
     accessibility: {
-      point: {
-        valueSuffix: '%'
+      announceNewData: {
+        enabled: true
       }
     },
-    size: '150%',
     colors: ['#cb2b83', '#164c7e', '#49aa19'],
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      title: {
+        text: null
+      }
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+      series: {
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true,
+          format: '{point.y}'
+        }
+      }
+    },
+
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
     series: [
       {
         name: 'Total',
+        colorByPoint: true,
         data: [
           {
             name: 'Cases',
@@ -43,8 +68,7 @@ const generateOptions = (data, darkMode) => {
     ]
   };
 };
-
-function CircleChart(props) {
+function AreaChart(props) {
   const { report } = props;
   const [options, setOptions] = useState({});
   const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
@@ -52,8 +76,11 @@ function CircleChart(props) {
   useEffect(() => {
     setOptions(generateOptions(report, darkMode));
   }, [report, darkMode]);
-
-  return <HighchartsReact highcharts={Highchart} options={options} />;
+  return (
+    <div>
+      <HighchartsReact highcharts={Highchart} options={options} />
+    </div>
+  );
 }
 
-export default CircleChart;
+export default AreaChart;

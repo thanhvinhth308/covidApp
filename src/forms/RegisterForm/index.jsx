@@ -11,19 +11,20 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(5),
     margin: 'auto',
-    height: '100%',
+    height: '100%'
   },
   title: {
     margin: theme.spacing(2, 0, 4, 0),
     textAlign: 'center',
+    fontSize: '20px'
   },
   submit: {
-    margin: theme.spacing(5, 0, 3, 0),
+    margin: theme.spacing(5, 0, 3, 0)
   },
   avatar: {
     margin: '0 auto',
-    background: theme.palette.secondary.main,
-  },
+    background: theme.palette.secondary.main
+  }
 }));
 
 function RegisterForm(props) {
@@ -33,25 +34,17 @@ function RegisterForm(props) {
   const initialValues = {
     username: '',
     password: '',
-    confirmPassWord: '',
+    confirmPassWord: ''
   };
   let validationSchema = yup.object().shape({
-    username: yup
-      .string()
-      .min(6, t('form.minMes'))
-      .required(t('form.reqMes'))
-      .typeError(t('form.reqMes')),
-    password: yup
-      .string()
-      .min(6, t('form.minMes'))
-      .required(t('form.reqMes'))
-      .typeError(t('form.reqMes')),
+    username: yup.string().min(6, t('form.minMes')).required(t('form.reqMes')).typeError(t('form.reqMes')),
+    password: yup.string().min(6, t('form.minMes')).required(t('form.reqMes')).typeError(t('form.reqMes')),
     confirmPassWord: yup
       .string()
       .min(6, t('form.minMes'))
       .required(t('form.reqMes'))
       .typeError(t('form.reqMes'))
-      .oneOf([yup.ref('password')], t('form.isNotMatchMes')),
+      .oneOf([yup.ref('password')], t('form.isNotMatchMes'))
   });
   const handleDrinkAddToCart = (formValue) => {
     if (onAccountRegister) {
@@ -65,9 +58,7 @@ function RegisterForm(props) {
         <Avatar className={classes.avatar}>
           <LockOutlined></LockOutlined>
         </Avatar>
-        <Typography className={classes.title} variant="h5">
-          {t('form.registerTitle')}
-        </Typography>
+        <Typography className={classes.title}>{t('form.registerTitle')}</Typography>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -76,31 +67,15 @@ function RegisterForm(props) {
           {() => {
             return (
               <Form>
-                <FastField
-                  name="username"
-                  id="username"
-                  component={TextInputField}
-                  label={t('form.username')}
-                />
-                <FastField
-                  name="password"
-                  id="password"
-                  component={PasswordField}
-                  label={t('form.password')}
-                />
+                <FastField name="username" id="username" component={TextInputField} label={t('form.username')} />
+                <FastField name="password" id="password" component={PasswordField} label={t('form.password')} />
                 <FastField
                   name="confirmPassWord"
                   id="confirmPassWord"
                   component={PasswordField}
                   label={t('form.confirmPassWord')}
                 />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="secondary"
-                  className={classes.submit}
-                  fullWidth
-                >
+                <Button type="submit" variant="contained" color="secondary" className={classes.submit} fullWidth>
                   {t('form.registerTitle')}
                 </Button>
               </Form>

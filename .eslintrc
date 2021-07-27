@@ -5,7 +5,7 @@
   "prettier/prettier": [
     "warn",
     {
-      "arrowParens": "avoid",
+      "arrowParens": "always",
       "semi": true,
       "trailingComma": "none",
       "endOfLine": "lf",
