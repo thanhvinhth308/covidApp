@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import 'antd/dist/antd.css';
 import numeral from 'numeral';
 import React, { useEffect, useState } from 'react';
@@ -15,6 +15,7 @@ function InfoCard(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let isMount = true;
     covidApi
       .getGlobalSummary()
       .then((res) => {
@@ -38,11 +39,16 @@ function InfoCard(props) {
             today: numeral(res.todayDeaths).format('0.0a')
           }
         ];
-        setNotableNumbers(numbers);
+        if (isMount) {
+          setNotableNumbers(numbers);
+        }
       })
       .catch((error) => {
         dispatch(GlobalActions.toggleErrorHandler(true));
       });
+    return () => {
+      isMount = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -58,6 +64,9 @@ function InfoCard(props) {
 
   return (
     <div>
+      <Typography variant="h5" component="h5" color="secondary" align="center">
+        COVID-19 WORLDWIDE
+      </Typography>
       <Grid container>
         {notableNumbers.map((notableNumber, index) => (
           <Grid key={index} item sm={4} xs={4}>

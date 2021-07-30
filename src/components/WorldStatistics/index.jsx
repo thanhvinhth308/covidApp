@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Grid, LinearProgress } from '@material-ui/core';
+import { Box, Button, ButtonGroup, Grid, LinearProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import covidApi from '../../apis/covidApi';
@@ -35,18 +35,20 @@ function WorldStatistics(props) {
   return (
     <div>
       {isLoading && <LinearProgress color="secondary" />}
-      <ButtonGroup size="small" style={{ display: 'flex', justifyContent: 'center' }}>
-        <Button color={time === 45 ? 'secondary' : ''} onClick={() => handleTimeChange(45)}>
-          45 ngày
-        </Button>
-        <Button color={time === 30 ? 'secondary' : ''} onClick={() => handleTimeChange(30)}>
-          30 ngày
-        </Button>
-        <Button color={time === 7 ? 'secondary' : ''} onClick={() => handleTimeChange(7)}>
-          7 ngày
-        </Button>
-      </ButtonGroup>
-      <Grid container>
+      <Box textAlign="center" mb={1}>
+        <ButtonGroup size="small">
+          <Button color={time === 45 ? 'secondary' : ''} onClick={() => handleTimeChange(45)}>
+            45 ngày
+          </Button>
+          <Button color={time === 30 ? 'secondary' : ''} onClick={() => handleTimeChange(30)}>
+            30 ngày
+          </Button>
+          <Button color={time === 7 ? 'secondary' : ''} onClick={() => handleTimeChange(7)}>
+            7 ngày
+          </Button>
+        </ButtonGroup>
+      </Box>
+      <Grid container marginBottom={1}>
         <Grid item sm={7} xs={12}>
           <BasicLineChart report={worldReport} />
         </Grid>

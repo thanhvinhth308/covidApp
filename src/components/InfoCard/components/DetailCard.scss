@@ -6,7 +6,6 @@
     font-size: 0.8rem;
     letter-spacing: 1px;
     text-align: center;
-    border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     .MuiCardHeader-root {
       font-weight: bold;
@@ -16,7 +15,10 @@
       background-color: #f8a8cc;
       .MuiCardHeader-content {
         .MuiTypography-root.MuiCardHeader-title.MuiTypography-h5.MuiTypography-displayBlock {
-          font-size: 17px;
+          @media screen and (max-width: 480px) {
+            font-size: 13px;
+          }
+          font-size: 20px;
           font-weight: bold;
           color: #cb2b83;
         }
@@ -57,7 +59,6 @@
     font-size: 0.8rem;
     letter-spacing: 1px;
     text-align: center;
-    border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     .MuiCardHeader-root {
       font-weight: bold;
@@ -67,7 +68,10 @@
       background-color: #726d6d;
       .MuiCardHeader-content {
         .MuiTypography-root.MuiCardHeader-title.MuiTypography-h5.MuiTypography-displayBlock {
-          font-size: 17px;
+          @media screen and (max-width: 480px) {
+            font-size: 13px;
+          }
+          font-size: 20px;
           font-weight: bold;
           color: #afabab;
         }
@@ -107,7 +111,6 @@
     font-size: 0.8rem;
     letter-spacing: 1px;
     text-align: center;
-    border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     .MuiCardHeader-root {
       font-weight: bold;
@@ -117,7 +120,10 @@
       background-color: #e4f88b;
       .MuiCardHeader-content {
         .MuiTypography-root.MuiCardHeader-title.MuiTypography-h5.MuiTypography-displayBlock {
-          font-size: 17px;
+          @media screen and (max-width: 480px) {
+            font-size: 13px;
+          }
+          font-size: 20px;
           font-weight: bold;
           color: #8bbb11;
         }

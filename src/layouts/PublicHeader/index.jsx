@@ -1,8 +1,7 @@
-// import AppBar from '../components/AppBar';
-// import Toolbar, { styles as toolbarStyles } from '../components/Toolbar';
 import {
   AppBar,
   Button,
+  CssBaseline,
   Dialog,
   DialogContent,
   FormControl,
@@ -12,18 +11,18 @@ import {
   Switch,
   Toolbar
 } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Close } from '@material-ui/icons';
+import i18next from 'i18next';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import Login from '../../components/Login';
 import Register from '../../components/Register';
-import i18next from 'i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import { GlobalActions } from '../../redux/rootAction';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
     backgroundColor: '#454242'
   },
@@ -40,11 +39,14 @@ const styles = (theme) => ({
     fontSize: 16,
     color: theme.palette.common.white,
     marginLeft: theme.spacing(3)
+  },
+  closeButton: {
+    justifyContent: 'flex-end'
   }
-});
+}));
 
 function PublicHeader(props) {
-  const { classes } = props;
+  const classes = useStyles();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
@@ -74,6 +76,7 @@ function PublicHeader(props) {
 
   return (
     <div>
+      <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.right}>
@@ -111,7 +114,7 @@ function PublicHeader(props) {
           disableBackdropClick
           disableEscapeKeyDown
         >
-          <IconButton className={classes.closeButton} onClick={handleLoginClose}>
+          <IconButton className={classes.closeButton} color="secondary" onClick={handleLoginClose}>
             <Close></Close>
           </IconButton>
           <DialogContent>
@@ -128,7 +131,11 @@ function PublicHeader(props) {
           disableBackdropClick
           disableEscapeKeyDown
         >
-          <IconButton className={classes.closeButton} onClick={handleRegisterClose}>
+          <IconButton
+            className={classes.closeButton}
+            color="secondary"
+            onClick={handleRegisterClose}
+          >
             <Close></Close>
           </IconButton>
           <DialogContent>
@@ -138,7 +145,6 @@ function PublicHeader(props) {
           </DialogContent>
         </Dialog>
       </AppBar>
-      <div className={classes.placeholder} />
     </div>
   );
 }
@@ -147,4 +153,4 @@ PublicHeader.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(PublicHeader);
+export default PublicHeader;

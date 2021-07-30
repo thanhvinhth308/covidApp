@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@material-ui/core';
+import { Paper, ThemeProvider } from '@material-ui/core';
 import { createTheme } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
@@ -9,6 +9,7 @@ import Login from './components/Login';
 import MessageModal from './components/Modal/MessageModal';
 import PrivateRouter from './components/PrivateRouter';
 import PublicRouter from './components/PublicRouter';
+import ScrollUpButton from './components/ScrollUpButton';
 import AllNews from './pages/AllNews';
 import DetailCountry from './pages/DetailCountry';
 import Home from './pages/Home';
@@ -31,12 +32,12 @@ function App(props) {
           <PrivateRouter exact path="/" component={Home} />
           <PrivateRouter exact path="/profile" component={Profile} />
           <PrivateRouter exact path="/countries/:countryName" component={DetailCountry} />
-          <AuthRouter exact path="/login" component={Login} />
           <PublicRouter exact path="/news" component={AllNews} />
           <Route component={NotFound} />
         </Switch>
       </ThemeProvider>
       <MessageModal />
+      <ScrollUpButton />
     </div>
   );
 }
