@@ -74,7 +74,6 @@ const useStyles = makeStyles((theme) => ({
 const drawerWidth = 170;
 function Header(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(null);
-  // const [language, setLanguage] = useState(localStorage.getItem('i18nextLng'));
   const history = useHistory();
   const match = useRouteMatch();
   const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
@@ -129,7 +128,12 @@ function Header(props) {
       <Image width="100%" src={logo2} />
       <Divider />
       <List>
-        <ListItem button key={t('header.home')} onClick={navigateHomePage} selected={match.path === '/'}>
+        <ListItem
+          button
+          key={t('header.home')}
+          onClick={navigateHomePage}
+          selected={match.path === '/'}
+        >
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
@@ -139,7 +143,12 @@ function Header(props) {
       <Divider />
 
       <List>
-        <ListItem button key={t('header.news')} onClick={navigateNewsPage} selected={match.path === '/news'}>
+        <ListItem
+          button
+          key={t('header.news')}
+          onClick={navigateNewsPage}
+          selected={match.path === '/news'}
+        >
           <ListItemIcon>
             <BurstModeIcon />
           </ListItemIcon>
@@ -179,7 +188,7 @@ function Header(props) {
             <MenuIcon />
           </IconButton>
           <Avatar alt="Not found" src={logo} />
-          <h3 className="header__slogan">Covid Tracking</h3>
+          <h3 className="header__slogan">Covid-19</h3>
           <FormControl>
             <Select
               onChange={handleLanguageChange}

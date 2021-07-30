@@ -19,7 +19,6 @@ function PasswordField(props) {
   return (
     <div>
       <TextField
-        style={{ minWidth: '300px' }}
         fullWidth
         id={name}
         label={label}
@@ -38,7 +37,9 @@ function PasswordField(props) {
         }}
         {...field}
       />
-      <ErrorMessage name={name}>{(msg) => <Typography color="secondary">{msg}</Typography>}</ErrorMessage>
+      <ErrorMessage name={name}>
+        {(msg) => <Typography color="secondary">{msg}</Typography>}
+      </ErrorMessage>
     </div>
   );
 }

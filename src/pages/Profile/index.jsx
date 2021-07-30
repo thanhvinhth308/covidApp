@@ -1,7 +1,8 @@
+import { Box } from '@material-ui/core';
 import React from 'react';
 
 function Profile(props) {
-  return <div>this is profile</div>;
+  return <Box paddingTop="80px">This is profile</Box>;
 }
 
 export default Profile;

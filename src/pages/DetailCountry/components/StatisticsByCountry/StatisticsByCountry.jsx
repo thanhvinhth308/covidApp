@@ -27,8 +27,9 @@ function StatisticsByCountry(props) {
   const [countryReport, setCountryReport] = useState({});
   const [countryId, setCountryId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [endedDataDate, setEndedDataDate] = useState('7/30/21');
   const [startedDate, setStartedDate] = useState('7/20/21');
-  const [endedDate, setEndedDate] = useState('7/23/21');
+  const [endedDate, setEndedDate] = useState('7/30/21');
 
   const handleCountryChange = (event, value) => {
     if (value?.country) {
@@ -70,11 +71,12 @@ function StatisticsByCountry(props) {
       const selectedCountry = countries.find((country) => country.country === countryName);
       setCountryId(selectedCountry?.iso2);
       covidApi
-        .getSummaryByCountry(countryName, 20)
+        .getSummaryByCountry(countryName, 'all')
         .then((res) => {
           setCountryReportRes(res);
           const endedDateRes = Object.keys(res.timeline.cases).pop();
           setEndedDate(endedDateRes);
+          setEndedDataDate(endedDateRes);
           setCountryReport(filterCountryReport(res.timeline, startedDate, endedDateRes));
           setIsLoading(false);
         })
@@ -92,7 +94,7 @@ function StatisticsByCountry(props) {
       <Typography variant="h4" component="h4" color="secondary">
         {countryReportRes?.country}
       </Typography>
-      <p>{t('detailPage.infoDateData') + ':' + endedDate}</p>
+      <p>{t('detailPage.infoDateData') + ':' + moment(endedDataDate).format('MM-DD-YYYY')}</p>
 
       <Box>
         <Space direction="vertical" size={12}>
@@ -105,7 +107,7 @@ function StatisticsByCountry(props) {
         </Space>
       </Box>
 
-      {countryReport ? (
+      {Object.keys(countryReportRes).length && Object.keys(countryReport).length ? (
         <Grid container>
           <Grid item sm={6} xs={12}>
             <LineChart report={countryReport?.timeline} />
