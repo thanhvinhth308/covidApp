@@ -48,7 +48,7 @@ function WorldStatistics(props) {
           </Button>
         </ButtonGroup>
       </Box>
-      <Grid container marginBottom={1}>
+      <Grid container>
         <Grid item sm={7} xs={12}>
           <BasicLineChart report={worldReport} />
         </Grid>

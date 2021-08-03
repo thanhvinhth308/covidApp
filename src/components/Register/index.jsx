@@ -1,12 +1,14 @@
 import { Box } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import RegisterForm from '../../forms/RegisterForm';
 Register.propTypes = {};
 
 function Register(props) {
   const { onRegisterClose, onLoginOpen } = props;
   const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation();
 
   const handleAccountRegister = async (formValues) => {
     const { username, password } = formValues;
@@ -14,7 +16,7 @@ function Register(props) {
     if (allAccount) {
       const newAllAccount = [...allAccount, { username: username, password: password }];
       localStorage.setItem('account', JSON.stringify(newAllAccount));
-      enqueueSnackbar('Tạo tài khoản thành công', { variant: 'success' });
+      enqueueSnackbar(t('form.enqueueSnackbar--register__success'), { variant: 'success' });
       if (onRegisterClose) {
         onRegisterClose();
       }
@@ -23,12 +25,19 @@ function Register(props) {
       }
     } else {
       localStorage.setItem('account', JSON.stringify([{ username: username, password: password }]));
-      enqueueSnackbar('Tạo tài khoản thành công', { variant: 'success' });
+      enqueueSnackbar(t('form.enqueueSnackbar--register__success'), { variant: 'success' });
+      if (onRegisterClose) {
+        onRegisterClose();
+      }
+      if (onLoginOpen) {
+        onLoginOpen();
+      }
     }
   };
+
   return (
     <Box>
-      <RegisterForm onAccountRegister={handleAccountRegister} />;
+      <RegisterForm onAccountRegister={handleAccountRegister} />
     </Box>
   );
 }

@@ -1,11 +1,8 @@
-import { Paper, ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core';
 import { createTheme } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import AuthRouter from './components/AuthRouter';
-import GlobalLoading from './components/GlobalLoading';
-import Login from './components/Login';
 import MessageModal from './components/Modal/MessageModal';
 import PrivateRouter from './components/PrivateRouter';
 import PublicRouter from './components/PublicRouter';
@@ -20,13 +17,12 @@ function App(props) {
   const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
   const theme = createTheme({
     palette: {
-      type: darkMode ? 'dark' : 'light'
-    }
+      type: darkMode ? 'dark' : 'light',
+    },
   });
 
   return (
     <div className="App">
-      <GlobalLoading />
       <ThemeProvider theme={theme}>
         <Switch>
           <PrivateRouter exact path="/" component={Home} />
@@ -41,5 +37,4 @@ function App(props) {
     </div>
   );
 }
-
 export default App;

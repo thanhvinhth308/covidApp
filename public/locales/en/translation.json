@@ -4,7 +4,8 @@
         "cases": "CASES",
         "recovered": "RECOVERED",
         "deaths": "DEATHS",
-        "rate":"cases/day"
+        "rate":"cases/day",
+        "title":"COVID-19 WORLDWIDE"
       },
       "chip": {
         "news": "News",
@@ -12,15 +13,22 @@
         "sport": "Sport"
       }
     },
+
     "homePage":{
-        "mapTitle":"World covid map",
-        "graphTitle":"World covid graph",
-        "tableTitle":"Covid statistics by country"
+        "mapTitle":"World Covid Map",
+        "graphTitle":"World Covid Graph",
+        "tableTitle":"Covid Statistics By Country"
       },
     "detailPage":{
       "titleSelect":"Choose a country",
-      "infoDateData":"Data updated to"
+      "infoDateData":"Data updated to",
+      "title--nodata__warning":"There is no data for this period, please choose another date",
+      "title--lineChart":"Covid-19 Line Chart",
+      "title--circleChart":"Covid-19 Pie Chart",
+      "title--columnChart":" Covid-19 Column Chart",
+      "title--map":" National Population Map"
     },
+
     "form":{
       "loginTitle":"Login",
       "registerTitle":"Register",
@@ -29,8 +37,19 @@
       "confirmPassWord":"Confirm Password",
       "minMes":"please at least 6 character",
       "reqMes":"please enter",
-      "isNotMatchMes":"password does not match"
+      "isNotMatchMes":"password does not match",
+      "wrongAccount":"Incorrect account or password",
+      "enqueueSnackbar--login__success":"Logged in successfully",
+      "enqueueSnackbar--register__success":"Account successfully created",
+      "enqueueSnackbar--logout__success":"Sign out successfully"
     },
+
+    "modal":{
+      "failMessage":{
+        "inform":"Get Data failed,please try again"
+      }
+    },
+
     "header":{
       "home":"Home",
       "news":"News",
@@ -38,6 +57,7 @@
       "myAccount":"My account",
       "logout":"Logout"
     },
+
     "chart":{
       "circle":{
         "cases":"Cases",

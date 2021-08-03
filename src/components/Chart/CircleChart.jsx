@@ -10,37 +10,37 @@ const generateOptions = (data, darkMode) => {
     chart: {
       height: 400,
       backgroundColor: darkMode ? themeColor.gray : themeColor.light,
-      type: 'pie'
+      type: 'pie',
     },
     title: {
-      text: null
+      text: null,
     },
     accessibility: {
       point: {
-        valueSuffix: '%'
-      }
+        valueSuffix: '%',
+      },
     },
     size: '150%',
-    colors: ['#cb2b83', '#164c7e', '#49aa19'],
+    colors: ['#e0529c', '#177ddc', '#6abe39'],
     series: [
       {
         name: 'Total',
         data: [
           {
             name: 'Cases',
-            y: data?.cases && Object.values(data?.cases).pop()
+            y: data?.cases && Object.values(data?.cases).pop(),
           },
           {
             name: 'Deaths',
-            y: data?.cases && Object.values(data?.deaths).pop()
+            y: data?.cases && Object.values(data?.deaths).pop(),
           },
           {
             name: 'Recovered',
-            y: data?.cases && Object.values(data?.recovered).pop()
-          }
-        ]
-      }
-    ]
+            y: data?.cases && Object.values(data?.recovered).pop(),
+          },
+        ],
+      },
+    ],
   };
 };
 
