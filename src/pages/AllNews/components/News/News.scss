@@ -1,0 +1,35 @@
+.news {
+  a {
+    color: unset;
+  }
+  .MuiAvatar-root.MuiAvatar-square.news__avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .news__title {
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 0px;
+    &:hover {
+      color: #108885;
+    }
+  }
+  .news__author {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: right;
+    color: #108885;
+  }
+  .news__description {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 140%;
+    text-align: justify;
+  }
+  .news__box {
+    width: 100%;
+  }
+}

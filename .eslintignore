@@ -1,0 +1,7 @@
+
+# default CRA
+src/reportWebVitals.js
+src/setupTests.js
+
+# redux 
+src/redux/rootReducer.js

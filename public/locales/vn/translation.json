@@ -1,14 +1,35 @@
 {
-  "infoCard": {
-      "cases": "CA BỆNH",
-      "recovered": "CA KHỎI",
-      "deaths": "TỬ VONG"
+"allNews":{
+      "infoCard": {
+        "cases": "CA BỆNH",
+        "recovered": "KHỎI BỆNH",
+        "deaths": "TỬ VONG",
+        "rate":"ca/ngày",
+        "title":"COVID-19 TRÊN THẾ GIỚI"
+      },
+      "chip": {
+        "news": "Tin tức",
+        "covid": "Covid19",
+        "sport": "Thể thao"
+      }
   },
-  "homePage":{
-    "mapTitle":"Bản đồ Covid thế giới",
-    "graphTitle":"Biều đồ Covid thế giới",
-    "tableTitle":"Bảng thống kê Covid theo từng nước"
+
+"homePage":{
+  "mapTitle":"Bản đồ Covid thế giới",
+  "graphTitle":"Biểu đồ Covid thế giới",
+  "tableTitle":"Bảng thống kê Covid theo từng nước"
+},
+
+"detailPage":{
+    "titleSelect":"Chọn quốc gia",
+    "infoDateData":"Dữ liệu cập nhật đến ngày",
+    "title--nodata__warning":"Khoảng thời gian này này không có dữ liệu, vui lòng chọn ngày khác",
+    "title--lineChart":"Biểu đồ đường Covid-19",
+    "title--circleChart":"Biểu đồ tròn Covid-19",
+    "title--columnChart":"Biểu đồ cột Covid-19",
+    "title--map":"Bản đồ dân số quốc gia"
   },
+
 "form":{
   "loginTitle":"Đăng nhập",
   "registerTitle":"Đăng kí",
@@ -17,13 +38,50 @@
   "confirmPassWord":"Nhập lại mật khẩu",
   "minMes":"Nhập ít nhất 6 kí tứ",
   "reqMes":"Hãy nhập",
-  "isNotMatchMes":"Mật khẩu không trùng"
+  "isNotMatchMes":"Mật khẩu không trùng",
+  "wrongAccount":"Tài khoản hoặc mật khẩu không chính xác",
+  "enqueueSnackbar--login__success":"Đăng nhập thành công",
+  "enqueueSnackbar--register__success":"Tạo tài khoản thành công",
+  "enqueueSnackbar--logout__success":"Đăng xuất thành công"
 },
+
+"modal":{
+  "failMessage":{
+    "inform":"Lấy dữ liệu không thành công, vui lòng thử lại"
+  }
+},
+
 "header":{
   "home":"Trang chủ",
   "news":"Tin tức",
   "country":"Quốc gia",
   "myAccount":"Tài khoản",
   "logout":"Đăng xuất"
+},
+
+"chart":{
+  "circle":{
+    "cases":"Số ca nhiễm",
+    "recovered":"Số ca khỏi",
+    "deaths":"Số ca chết"
+  },
+  "line":{
+    "cases":"Số ca nhiễm",
+    "recovered":"Số ca khỏi",
+    "deaths":"Số ca chết"
+  },
+  "basicLine":{
+    "cases":"Số ca nhiễm",
+    "recovered":"Số ca khỏi",
+    "deaths":"Số ca chết"
+  },
+  "area":{
+    "cases":"Số ca nhiễm",
+    "recovered":"Số ca khỏi",
+    "deaths":"Số ca chết"
+  },
+  "countryMap":{
+    "population":"Dân số"
+  }
 }
 }

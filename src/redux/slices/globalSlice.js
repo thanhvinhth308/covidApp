@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isLoading: false,
-  language: 1,
+  isErrorHandler: false,
+  darkTheme: false,
 };
 
 const globalSlice = createSlice({
   name: 'globalSlice',
   initialState: initialState,
   reducers: {
-    toggleLoading(state, action) {
-      state.isLoading = action.payload;
+    toggleErrorHandler(state, action) {
+      state.isErrorHandler = action.payload;
     },
-    changeLanguage(state, action) {
-      state.language = state.language + 1;
+    changeTheme(state, action) {
+      state.darkTheme = action.payload;
     },
   },
 });

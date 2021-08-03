@@ -1,75 +1,116 @@
-import { Box, Button, Container, Grid, Hidden, Paper, Typography } from '@material-ui/core';
-import { Progress } from 'antd';
+import {
+  Box,
+  Chip,
+  Container,
+  Grid,
+  Hidden,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@material-ui/core';
+import { Skeleton } from 'antd';
 import 'antd/dist/antd.css';
 import React, { useEffect, useState } from 'react';
-import newApi from '../../apis/newsApi';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import newsApi from '../../apis/newsApi';
 import InfoCard from '../../components/InfoCard';
-import { checkToken } from '../../utils/localStorage';
+import { GlobalActions } from '../../redux/rootAction';
+import { checkToken } from '../../utils/helper';
 import './AllNews.scss';
 import ImgCarousel from './components/ImgCarousel';
-import NewsList from './components/NewsList';
+import NewsList from './components/NewsList/NewsList';
 import NewSkeleton from './components/NewsSkeleton/NewsSkeleton';
+import Watch from './components/Watch';
+
 function AllNews(props) {
   const [allNews, setAllNews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    const getAllNews = async () => {
-      setIsLoading(true);
-      const res = await newApi.getAllNews();
-      setAllNews(res.articles);
-      setIsLoading(false);
-    };
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+
+  const getAllNews = async (pagination) => {
     try {
-      getAllNews();
+      setIsLoading(true);
+      const res = await newsApi.getAllNews(pagination);
+      setAllNews(res);
+      setIsLoading(false);
     } catch (error) {
-      alert('Get Data failed,please try again');
+      dispatch(GlobalActions.toggleErrorHandler(true));
       setIsLoading(false);
     }
+  };
+
+  useEffect(() => {
+    getAllNews({ page: 1, limit: 6 });
   }, []);
 
-  return isLoading ? (
-    <NewSkeleton />
-  ) : (
-    <Box paddingTop="65px">
+  return (
+    <Box className="allNews" paddingTop="65px">
       {!checkToken() ? (
         <Hidden mdDown>
           <ImgCarousel />
         </Hidden>
       ) : null}
+      <Paper>
+        <Box>
+          <InfoCard />
+        </Box>
 
-      <Box>
-        <InfoCard />
-      </Box>
+        <Container maxWidth="lg">
+          <Grid container>
+            <Grid item sm={12} xs={12}>
+              <Box mb={2}>
+                <Chip variant="outlined" label={t('allNews.chip.news')} onDelete={() => {}} color="secondary" />
+                <Chip variant="outlined" label={t('allNews.chip.covid')} onDelete={() => {}} color="secondary" />
+                <Chip variant="outlined" label={t('allNews.chip.sport')} onDelete={() => {}} color="secondary" />
+              </Box>
+            </Grid>
 
-      <Container maxWidth="lg">
-        <Grid container>
-          <Grid item sm={8} xs={12}>
-            <NewsList allNews={allNews} />
-          </Grid>
-          <Grid item sm={4} xs={12} container>
-            <Grid item sm={6} xs={6}>
-              <Paper>
-                <Box textAlign="center">
-                  <Progress type="circle" percent={75} strokeColor="" />
-                  <Typography variant="body2" color="inherit" className="allNews__more">
-                    Recovered Rate
-                  </Typography>
-                </Box>
-              </Paper>
+            <Grid item sm={8} xs={12}>
+              {isLoading ? <NewSkeleton /> : <NewsList allNews={allNews} />}
             </Grid>
-            <Grid item sm={6} xs={6}>
-              <Paper>
-                <Box textAlign="center">
-                  <Progress type="circle" percent={75} strokeColor="red" />
-                  <Typography variant="body2" color="inherit" className="allNews__more">
-                    Recovered Rate
-                  </Typography>
-                </Box>
-              </Paper>
-            </Grid>
+
+            <Hidden xsDown>
+              <Grid item sm={4} xs={12} container>
+                <Grid item sm={12} xs={12}>
+                  <Watch />
+                  {isLoading ? (
+                    <Skeleton paragraph={{ rows: 13 }} active />
+                  ) : (
+                    <Box>
+                      <TableContainer className="allNews__table" component={Paper}>
+                        <Table aria-label="simple table">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Sumary News</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {allNews.map((row) => (
+                              <TableRow key={row.title}>
+                                <TableCell component="th" scope="row">
+                                  <a href={row?.url} target="_blank" rel="noreferrer">
+                                    <p>{row.title}</p>
+                                  </a>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </Box>
+                  )}
+                </Grid>
+              </Grid>
+            </Hidden>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </Paper>
     </Box>
   );
 }

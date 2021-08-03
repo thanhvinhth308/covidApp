@@ -1,7 +1,6 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
 import StatisticsByCountry from './components/StatisticsByCountry/StatisticsByCountry';
-
 DetailCountry.propTypes = {};
 
 function DetailCountry(props) {
@@ -11,5 +10,4 @@ function DetailCountry(props) {
     </Box>
   );
 }
-
 export default DetailCountry;

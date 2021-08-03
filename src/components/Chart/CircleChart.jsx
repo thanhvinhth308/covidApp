@@ -1,54 +1,42 @@
 import Highchart from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { themeColor } from '../../utils/constants';
 CircleChart.propTypes = {};
 
-const generateOptions = (data) => {
+const generateOptions = (data, darkMode) => {
   return {
     chart: {
       height: 400,
-
+      backgroundColor: darkMode ? themeColor.gray : themeColor.light,
       type: 'pie',
     },
     title: {
       text: null,
     },
-    // tooltip: {
-    //   pointFormat: '<b>{point.percentage:.1f}%</b>',
-    // },
     accessibility: {
       point: {
         valueSuffix: '%',
       },
     },
     size: '150%',
-    // plotOptions: {
-    //   pie: {
-    //     allowPointSelect: true,
-    //     cursor: 'pointer',
-    //     dataLabels: {
-    //       enabled: true,
-    //       format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-    //       connectorColor: 'silver',
-    //     },
-    //   },
-    // },
-    colors: ['#c9302c', 'gray', '#28a745'],
+    colors: ['#e0529c', '#177ddc', '#6abe39'],
     series: [
       {
+        name: 'Total',
         data: [
           {
-            name: 'Số ca nhiễm',
-            y: _.sum(data.cases && Object.values(data.cases)),
+            name: 'Cases',
+            y: data?.cases && Object.values(data?.cases).pop(),
           },
           {
-            name: 'Số ca chết',
-            y: _.sum(data.cases && Object.values(data.deaths)),
+            name: 'Deaths',
+            y: data?.cases && Object.values(data?.deaths).pop(),
           },
           {
-            name: 'Số ca khỏi',
-            y: _.sum(data.cases && Object.values(data.recovered)),
+            name: 'Recovered',
+            y: data?.cases && Object.values(data?.recovered).pop(),
           },
         ],
       },
@@ -57,12 +45,13 @@ const generateOptions = (data) => {
 };
 
 function CircleChart(props) {
-  const { report = [] } = props;
+  const { report } = props;
   const [options, setOptions] = useState({});
+  const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
 
   useEffect(() => {
-    setOptions(generateOptions(report));
-  }, [report]);
+    setOptions(generateOptions(report, darkMode));
+  }, [report, darkMode]);
 
   return <HighchartsReact highcharts={Highchart} options={options} />;
 }

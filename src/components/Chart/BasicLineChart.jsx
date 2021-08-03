@@ -1,24 +1,24 @@
-import { Button, ButtonGroup } from '@material-ui/core';
 import Highchart from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { themeColor } from '../../utils/constants';
 BasicLineChart.propTypes = {};
 
-const generateOptions = (data) => {
-  // const categories = data.map((item) => moment(item.Date).format('DD/MM/YYYY'));
-
+const generateOptions = (data, darkMode) => {
   return {
     chart: {
       height: 400,
+      backgroundColor: darkMode ? themeColor.gray : themeColor.light,
     },
     title: {
       text: null,
     },
     xAxis: {
-      categories: data.cases && Object.keys(data.cases),
+      categories: data?.cases && Object.keys(data.cases),
       crosshair: true,
     },
-    colors: ['#c9302c', 'gray', '#28a745'],
+    colors: ['#e0529c', '#177ddc', '#6abe39'],
     yAxis: {
       min: 0,
       title: {
@@ -39,19 +39,35 @@ const generateOptions = (data) => {
         pointPadding: 0.2,
         borderWidth: 0,
       },
+      series: {
+        events: {
+          legendItemClick: function (bla) {
+            if (this.visible) {
+              var count = 0;
+              for (var index in this.chart.series) {
+                if (this.chart.series[index].visible) {
+                  count = count + 1;
+                  if (count > 1) break;
+                }
+              }
+              if (count === 1) return false;
+            }
+          },
+        },
+      },
     },
     series: [
       {
-        name: 'Số ca nhiễm',
-        data: data.cases && Object.values(data.cases),
+        name: 'Cases',
+        data: data?.cases && Object.values(data.cases),
       },
       {
-        name: 'Số ca chết',
-        data: data.deaths && Object.values(data.deaths),
+        name: 'Deaths',
+        data: data?.deaths && Object.values(data.deaths),
       },
       {
-        name: 'Số ca khỏi',
-        data: data.recovered && Object.values(data.recovered),
+        name: 'Recovered',
+        data: data?.recovered && Object.values(data.recovered),
       },
     ],
   };
@@ -60,10 +76,12 @@ const generateOptions = (data) => {
 function BasicLineChart(props) {
   const { report } = props;
   const [options, setOptions] = useState({});
+  const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
 
   useEffect(() => {
-    setOptions(generateOptions(report));
-  }, [report]);
+    setOptions(generateOptions(report, darkMode));
+  }, [report, darkMode]);
+
   return (
     <div>
       <HighchartsReact highcharts={Highchart} options={options} />

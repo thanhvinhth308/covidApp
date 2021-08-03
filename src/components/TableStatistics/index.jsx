@@ -1,16 +1,11 @@
-import { Avatar, Box, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, Box } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import covidApi from '../../apis/covidApi';
-TableStatistics.propTypes = {};
-
-const useStyles = makeStyles({
-  root: {
-    '& .super-app-theme--header': {
-      backgroundColor: 'rgba(255, 7, 0, 0.55)',
-    },
-  },
-});
+import { GlobalActions } from '../../redux/rootAction';
+import './TableStatistics.scss';
 
 const columns = [
   {
@@ -20,7 +15,7 @@ const columns = [
     headerAlign: 'center',
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box textAlign="center" width="100%">
+      <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.id}
       </Box>
     ),
@@ -33,7 +28,7 @@ const columns = [
     headerAlign: 'center',
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box display="flex" alignItems="center" textAlign="center">
+      <Box display="flex" alignItems="center" textAlign="center" fontWeight="bold">
         <Avatar src={params.row.flag} />
         <div>{params.row.country}</div>
       </Box>
@@ -46,7 +41,7 @@ const columns = [
     headerAlign: 'center',
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box textAlign="center" width="100%">
+      <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.continent}
       </Box>
     ),
@@ -59,7 +54,7 @@ const columns = [
     headerAlign: 'center',
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box textAlign="center" width="100%">
+      <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.cases}
       </Box>
     ),
@@ -72,7 +67,7 @@ const columns = [
     width: 200,
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box textAlign="center" width="100%">
+      <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.recovered}
       </Box>
     ),
@@ -85,7 +80,7 @@ const columns = [
     width: 200,
     headerClassName: 'super-app-theme--header',
     renderCell: (params) => (
-      <Box textAlign="center" width="100%">
+      <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.deaths}
       </Box>
     ),
@@ -95,10 +90,14 @@ const columns = [
 function TableStatistics(props) {
   const [infoCountries, setInfoCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const handleMapData = async () => {
+  const handleRowClick = (e) => {
+    history.push(`/countries/${e.row.country}`);
+  };
+  const handleMapData = async () => {
+    try {
       setIsLoading(true);
       const information = await covidApi.getSummaryAllCountry();
       const informationFilter = information.map((country, index) => ({
@@ -112,18 +111,19 @@ function TableStatistics(props) {
       }));
       setIsLoading(false);
       setInfoCountries(informationFilter);
-    };
-    try {
-      handleMapData();
     } catch (error) {
-      alert('Get Data failed,please try again');
+      dispatch(GlobalActions.toggleErrorHandler(true));
       setIsLoading(false);
     }
+  };
+
+  useEffect(() => {
+    handleMapData();
   }, []);
+
   return (
-    <Box style={{ height: 620 }}>
+    <Box className="statistic__table" style={{ height: 620 }}>
       <DataGrid
-        className={classes.root}
         showCellRightBorder={true}
         showColumnRightBorder={true}
         loading={isLoading}
@@ -131,9 +131,7 @@ function TableStatistics(props) {
         columns={columns}
         pageSize={10}
         disableExtendRowFullWidth={true}
-        onCellClick={() => {
-          console.log('onCellClick');
-        }}
+        onCellClick={handleRowClick}
       />
     </Box>
   );

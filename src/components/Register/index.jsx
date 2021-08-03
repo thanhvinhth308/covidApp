@@ -1,15 +1,14 @@
-import { Box, makeStyles } from '@material-ui/core';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import RegisterForm from '../../forms/RegisterForm';
-import SignInBackground from '../../assets/images/background/signInBackground.jpeg';
+import { Box } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import RegisterForm from '../../forms/RegisterForm';
 Register.propTypes = {};
 
 function Register(props) {
-  const { OnRegisterClose } = props;
-  const history = useHistory();
+  const { onRegisterClose, onLoginOpen } = props;
   const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation();
 
   const handleAccountRegister = async (formValues) => {
     const { username, password } = formValues;
@@ -17,20 +16,28 @@ function Register(props) {
     if (allAccount) {
       const newAllAccount = [...allAccount, { username: username, password: password }];
       localStorage.setItem('account', JSON.stringify(newAllAccount));
-      enqueueSnackbar('Tạo tài khoản thành công', { variant: 'success' });
-      if (OnRegisterClose) {
-        OnRegisterClose();
+      enqueueSnackbar(t('form.enqueueSnackbar--register__success'), { variant: 'success' });
+      if (onRegisterClose) {
+        onRegisterClose();
       }
-      // history.push('/news');
+      if (onLoginOpen) {
+        onLoginOpen();
+      }
     } else {
       localStorage.setItem('account', JSON.stringify([{ username: username, password: password }]));
-      enqueueSnackbar('Tạo tài khoản thành công', { variant: 'success' });
-      // history.push('/news');
+      enqueueSnackbar(t('form.enqueueSnackbar--register__success'), { variant: 'success' });
+      if (onRegisterClose) {
+        onRegisterClose();
+      }
+      if (onLoginOpen) {
+        onLoginOpen();
+      }
     }
   };
+
   return (
     <Box>
-      <RegisterForm onAccountRegister={handleAccountRegister} />;
+      <RegisterForm onAccountRegister={handleAccountRegister} />
     </Box>
   );
 }

@@ -1,0 +1,15 @@
+.statistic__table {
+  .MuiDataGrid-columnHeader {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+  }
+  .MuiIconButton-label {
+    font-weight: bold;
+  }
+  .MuiDataGrid-columnHeader--alignRight {
+    background-color: red;
+  }
+  .MuiDataGrid-cell:nth-child(1) {
+  }
+}

@@ -16,9 +16,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: theme.spacing(2, 0, 4, 0),
     textAlign: 'center',
+    fontSize: '20px',
   },
   submit: {
-    margin: theme.spacing(5, 0, 3, 0),
+    margin: theme.spacing(2, 0, 3, 0),
   },
   avatar: {
     margin: '0 auto',
@@ -36,16 +37,8 @@ function RegisterForm(props) {
     confirmPassWord: '',
   };
   let validationSchema = yup.object().shape({
-    username: yup
-      .string()
-      .min(6, t('form.minMes'))
-      .required(t('form.reqMes'))
-      .typeError(t('form.reqMes')),
-    password: yup
-      .string()
-      .min(6, t('form.minMes'))
-      .required(t('form.reqMes'))
-      .typeError(t('form.reqMes')),
+    username: yup.string().min(6, t('form.minMes')).required(t('form.reqMes')).typeError(t('form.reqMes')),
+    password: yup.string().min(6, t('form.minMes')).required(t('form.reqMes')).typeError(t('form.reqMes')),
     confirmPassWord: yup
       .string()
       .min(6, t('form.minMes'))
@@ -53,7 +46,8 @@ function RegisterForm(props) {
       .typeError(t('form.reqMes'))
       .oneOf([yup.ref('password')], t('form.isNotMatchMes')),
   });
-  const handleDrinkAddToCart = (formValue) => {
+
+  const handleRegisterSubmit = (formValue) => {
     if (onAccountRegister) {
       onAccountRegister(formValue);
     }
@@ -65,42 +59,24 @@ function RegisterForm(props) {
         <Avatar className={classes.avatar}>
           <LockOutlined></LockOutlined>
         </Avatar>
-        <Typography className={classes.title} component="h3" variant="h5">
-          {t('form.registerTitle')}
-        </Typography>
+        <Typography className={classes.title}>{t('form.registerTitle')}</Typography>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={(formValue) => handleDrinkAddToCart(formValue)}
+          onSubmit={(formValue) => handleRegisterSubmit(formValue)}
         >
           {() => {
             return (
               <Form>
-                <FastField
-                  name="username"
-                  id="username"
-                  component={TextInputField}
-                  label={t('form.username')}
-                />
-                <FastField
-                  name="password"
-                  id="password"
-                  component={PasswordField}
-                  label={t('form.password')}
-                />
+                <FastField name="username" id="username" component={TextInputField} label={t('form.username')} />
+                <FastField name="password" id="password" component={PasswordField} label={t('form.password')} />
                 <FastField
                   name="confirmPassWord"
                   id="confirmPassWord"
                   component={PasswordField}
                   label={t('form.confirmPassWord')}
                 />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="secondary"
-                  className={classes.submit}
-                  fullWidth
-                >
+                <Button type="submit" variant="contained" color="secondary" className={classes.submit} fullWidth>
                   {t('form.registerTitle')}
                 </Button>
               </Form>

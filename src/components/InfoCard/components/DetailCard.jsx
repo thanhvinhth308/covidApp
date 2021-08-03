@@ -1,29 +1,30 @@
-import { Box } from '@material-ui/core';
-import { Card, Skeleton } from 'antd';
+import { Box, Card, CardContent, CardHeader, CircularProgress, Paper } from '@material-ui/core';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import './DetailCard.scss';
+import { useTranslation } from 'react-i18next';
+import('./DetailCard.scss');
 
 function DetailCard(props) {
-  // const language = useSelector((state) => state.GlobalReducer.language);
-  const { notableNumber } = props;
+  const { notableNumber = [] } = props;
+  const { t } = useTranslation();
+
   return (
     <Box className={notableNumber.type}>
-      <Card title={notableNumber.title}>
-        {true ? (
-          <>
-            <p>{notableNumber.number}</p>
-            <p>
+      {notableNumber.length ? (
+        <CircularProgress color="secondary" />
+      ) : (
+        <Paper>
+          <Card>
+            <CardHeader title={notableNumber.title} />
+            <CardContent>
+              <p color="textSecondary">{notableNumber.number}</p>
               <p>
                 +{notableNumber.today} <br></br>
-                <span>ca/ngày</span>
+                <span>{t('allNews.infoCard.rate')}</span>
               </p>
-            </p>
-          </>
-        ) : (
-          <Skeleton className="cardskeleton" active />
-        )}
-      </Card>
+            </CardContent>
+          </Card>
+        </Paper>
+      )}
     </Box>
   );
 }

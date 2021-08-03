@@ -1,0 +1,34 @@
+.newList {
+  a {
+    color: unset;
+  }
+  .newList__title {
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 140%;
+    font-weight: 700;
+    margin-bottom: 0px;
+    &:hover {
+      color: #108885;
+    }
+  }
+  .newList__description {
+    line-height: 140%;
+    font-size: 12px;
+    text-align: justify;
+  }
+  .newList__author {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: right;
+    color: #108885;
+  }
+  .MuiDivider-root.newList__divider.MuiDivider-light {
+    height: 10px;
+  }
+
+  .subNews__paper {
+    height: 100%;
+  }
+}

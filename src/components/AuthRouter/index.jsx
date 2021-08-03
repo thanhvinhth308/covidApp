@@ -1,14 +1,14 @@
 import React from 'react';
-import MainLayout from '../../layouts/MainLayout';
 import { Redirect, Route } from 'react-router-dom';
-import { checkToken } from '../../utils/localStorage';
+import MainLayout from '../../layouts/MainLayout';
+import { checkToken } from '../../utils/helper';
 
 function AuthRouter({ component: Component, ...rest }) {
   return (
     <div>
       <Route
         {...rest}
-        render={props => {
+        render={(props) => {
           return !checkToken() ? (
             <MainLayout>
               <Component {...props} />

@@ -1,6 +1,7 @@
-import { Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import LoginForm from '../../forms/LoginForm';
 
@@ -10,27 +11,30 @@ function Login(props) {
   const history = useHistory();
   const [message, setMessage] = useState('');
   const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation();
 
-  const handleAccountCheck = async formValues => {
+  const handleAccountCheck = async (formValues) => {
     const { username, password } = formValues;
     const allAccount = JSON.parse(localStorage.getItem('account'));
-    const index = allAccount.findIndex(item => item.username === username && item.password === password);
-
+    let index = -1;
+    if (allAccount) {
+      index = allAccount.findIndex((item) => item.username === username && item.password === password);
+    }
     if (index > -1) {
       setMessage('');
       localStorage.setItem('username', username);
       localStorage.setItem('password', password);
-      enqueueSnackbar('Đăng nhập thành công', { variant: 'success' });
+      enqueueSnackbar(t('form.enqueueSnackbar--login__success'), { variant: 'success' });
       history.push('/');
     } else {
-      setMessage('Tài khoản hoặc mật khẩu của bạn không chính xác');
+      setMessage(t('form.wrongAccount'));
     }
   };
+
   return (
-    <div>
-      <LoginForm onAccountCheck={handleAccountCheck} />
-      <Typography color="secondary">{message}</Typography>
-    </div>
+    <Box>
+      <LoginForm onAccountCheck={handleAccountCheck} errorMessage={message} />
+    </Box>
   );
 }
 

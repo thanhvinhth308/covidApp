@@ -1,0 +1,16 @@
+.watch__root {
+  .watch__content {
+    .react-clock__face {
+      .react-clock__mark.react-clock__minute-mark {
+        .react-clock__mark__body.react-clock__minute-mark__body {
+          background-color: aqua;
+        }
+      }
+      .react-clock__mark.react-clock__hour-mark {
+        .react-clock__mark__body.react-clock__hour-mark__body {
+          background-color: rgb(8, 134, 134);
+        }
+      }
+    }
+  }
+}

@@ -21,5 +21,4 @@ function NewSkeleton(props) {
     </div>
   );
 }
-
 export default NewSkeleton;

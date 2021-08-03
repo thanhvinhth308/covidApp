@@ -1,12 +1,12 @@
 import {
   AppBar,
+  Avatar,
   CssBaseline,
   Divider,
   Drawer,
   FormControl,
   Hidden,
   IconButton,
-  InputLabel,
   List,
   ListItem,
   ListItemIcon,
@@ -15,21 +15,25 @@ import {
   Menu,
   MenuItem,
   Select,
+  Switch,
   Toolbar,
-  Typography,
   useTheme,
 } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import BurstModeIcon from '@material-ui/icons/BurstMode';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Image } from 'antd';
+import i18next from 'i18next';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { checkToken } from '../../utils/localStorage';
-import i18next from 'i18next';
+import avatarImage from '../../assets/images/covid/avatar.jpeg';
+import logo from '../../assets/images/covid/logo.jpg';
+import logo2 from '../../assets/images/covid/logo2.jpg';
+import { GlobalActions } from '../../redux/rootAction';
+import './Header.scss';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,43 +48,43 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '30px',
     },
   },
-  title: {
-    flexGrow: 1,
-    color: 'white',
-  },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: drawerWidth,
       flexShrink: 0,
     },
   },
   appBar: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: 'pink',
   },
 }));
 const drawerWidth = 170;
 function Header(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(null);
-  const [language, setLanguage] = useState(localStorage.getItem('i18nextLng'));
   const history = useHistory();
   const match = useRouteMatch();
+  const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
+  const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation();
   const classes = useStyles();
+  const language = localStorage.getItem('i18nextLng');
 
+  const handleThemeChange = () => {
+    dispatch(GlobalActions.changeTheme(!darkMode));
+  };
   const navigateHomePage = () => {
     history.push('/');
   };
@@ -102,74 +106,62 @@ function Header(props) {
   const handleLogoutClick = () => {
     localStorage.removeItem('username');
     localStorage.removeItem('password');
-    enqueueSnackbar('Đăng xuất thành công', { variant: 'success' });
+    enqueueSnackbar(t('form.enqueueSnackbar--logout__success'), { variant: 'success' });
     history.push('/news');
   };
   const handleLanguageChange = (e) => {
     i18next.changeLanguage(e.target.value);
-    setLanguage(e.target.value);
+  };
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
   const { window } = props;
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
 
   const drawer = (
     <div className={classes.listItem}>
-      <Divider />
-      {checkToken() && (
-        <List>
-          <ListItem
-            button
-            key={t('header.home')}
-            onClick={navigateHomePage}
-            selected={match.path === '/'}
-          >
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary={t('header.home')} />
-          </ListItem>
-        </List>
-      )}
+      <Image width="100%" src={logo2} />
       <Divider />
       <List>
-        <ListItem
-          button
-          key={t('header.news')}
-          onClick={navigateNewsPage}
-          selected={match.path === '/news'}
-        >
+        <ListItem button key={t('header.home')} onClick={navigateHomePage} selected={match.path === '/'}>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary={t('header.home')} />
+        </ListItem>
+      </List>
+      <Divider />
+
+      <List>
+        <ListItem button key={t('header.news')} onClick={navigateNewsPage} selected={match.path === '/news'}>
           <ListItemIcon>
             <BurstModeIcon />
           </ListItemIcon>
           <ListItemText primary={t('header.news')} />
         </ListItem>
       </List>
-      {checkToken() && (
-        <List>
-          <ListItem
-            button
-            key={t('header.country')}
-            onClick={navigateDetailCountry}
-            selected={match.path === '/countries/:countryName'}
-          >
-            <ListItemIcon>
-              <BurstModeIcon />
-            </ListItemIcon>
-            <ListItemText primary={t('header.country')} />
-          </ListItem>
-        </List>
-      )}
+
+      <List>
+        <ListItem
+          button
+          key={t('header.country')}
+          onClick={navigateDetailCountry}
+          selected={match.path === '/countries/:countryName'}
+        >
+          <ListItemIcon>
+            <BurstModeIcon />
+          </ListItemIcon>
+          <ListItemText primary={t('header.country')} />
+        </ListItem>
+      </List>
     </div>
   );
-
   const container = window !== undefined ? () => window().document.body : undefined;
+
   return (
-    <div className={classes.root}>
+    <div className="header">
       <CssBaseline />
       <AppBar color="secondary" className={classes.appBar}>
         <Toolbar>
@@ -182,27 +174,32 @@ function Header(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Covid Tracking
-          </Typography>
+          <Avatar alt="Not found" src={logo} />
+          <h3 className="header__slogan">Covid-19</h3>
           <FormControl>
             <Select
               onChange={handleLanguageChange}
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
-              defaultValue={language}
+              value={language}
             >
               <MenuItem value="en">EN</MenuItem>
               <MenuItem value="vn">VN</MenuItem>
             </Select>
           </FormControl>
-          {checkToken() && (
-            <IconButton onClick={handleMenuOpen} style={{ color: 'white' }}>
-              <AccountCircle color="inherit" />
-            </IconButton>
-          )}
+          <Switch
+            checked={darkMode}
+            onChange={handleThemeChange}
+            name="checkedA"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+            color="default"
+          />
+          <IconButton onClick={handleMenuOpen} style={{ color: 'white' }}>
+            <Avatar alt="Not found" src={avatarImage} />
+          </IconButton>
         </Toolbar>
       </AppBar>
+
       <Menu
         anchorEl={isMenuOpen}
         keepMounted
@@ -221,8 +218,9 @@ function Header(props) {
         <MenuItem onClick={navigateProfile}>{t('header.myAccount')} </MenuItem>
         <MenuItem onClick={handleLogoutClick}>{t('header.logout')}</MenuItem>
       </Menu>
+
       <nav className={classes.drawer} aria-label="mailbox folders">
-        <Hidden smUp implementation="css">
+        <Hidden xsUp implementation="css">
           <Drawer
             container={container}
             variant="temporary"
@@ -239,7 +237,7 @@ function Header(props) {
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown implementation="css">
           <Drawer
             classes={{
               paper: classes.drawerPaper,

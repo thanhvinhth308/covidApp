@@ -1,38 +1,35 @@
-import { LinearProgress } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { useSelector } from 'react-redux';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'absolute',
+    position: 'fixed',
     width: '100vw',
-    height: '120vh',
+    height: '100vh',
     top: '0',
     left: '0',
-    background: 'white',
-    opacity: '0.2'
+    background: 'pink',
+    zIndex: '10',
   },
   loading: {
     position: 'absolute',
-    // left: "50%",
     top: '50%',
-    transform: 'translate(0%,-50%)',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
     width: '100vw',
-    zIndex: '3'
-  }
+    textAlign: 'center',
+  },
 }));
 
 export default function GlobalLoading() {
   const classes = useStyles();
-  const isLoading = useSelector(state => state.GlobalReducer.isLoading);
+
   return (
-    isLoading && (
-      <div className={classes.root}>
-        <div className={classes.loading}>
-          <LinearProgress />
-        </div>
+    <div className={classes.root}>
+      <div className={classes.loading}>
+        <CircularProgress color="secondary" />
       </div>
-    )
+    </div>
   );
 }

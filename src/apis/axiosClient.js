@@ -8,30 +8,30 @@ const axiosCovid = axios.create({
 
 axiosCovid.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
     return config;
   },
   function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
-);
-// Add a response interceptor
-axiosCovid.interceptors.response.use(
-  function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    return response.data;
-  },
-  function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
     return Promise.reject(error);
   }
 );
 
+axiosCovid.interceptors.response.use(
+  function (response) {
+    return response.data;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+//Dự phòng api heroku hỏng
+// const axiosNews = axios.create({
+//   baseURL: 'https://newsapi.org/v2/',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+// });
 const axiosNews = axios.create({
-  baseURL: 'https://newsapi.org/v2/',
+  baseURL: 'https://article-new.herokuapp.com/',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -39,25 +39,18 @@ const axiosNews = axios.create({
 
 axiosNews.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
     return config;
   },
   function (error) {
-    // Do something with request error
     return Promise.reject(error);
   }
 );
 
-// Add a response interceptor
 axiosNews.interceptors.response.use(
   function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
     return response.data;
   },
   function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
     return Promise.reject(error);
   }
 );

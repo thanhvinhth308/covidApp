@@ -1,18 +1,10 @@
-import {
-  Avatar,
-  Box,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  makeStyles,
-  NativeSelect,
-  TextField,
-} from '@material-ui/core';
-import { deepOrange, green } from '@material-ui/core/colors';
+import { Avatar, Box, makeStyles, TextField } from '@material-ui/core';
+import { deepOrange } from '@material-ui/core/colors';
 import { Autocomplete } from '@material-ui/lab';
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 CountrySelector.propTypes = {};
+
 const useStyles = makeStyles((theme) => ({
   square: {
     color: theme.palette.getContrastText(deepOrange[500]),
@@ -26,8 +18,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 function CountrySelector(props) {
   const { onCountryChange, countries = [] } = props;
+  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
@@ -52,7 +46,7 @@ function CountrySelector(props) {
         <Box>
           <TextField
             {...params}
-            label="Choose a country"
+            label={t('detailPage.titleSelect')}
             variant="outlined"
             color="secondary"
             fullWidth
@@ -66,5 +60,4 @@ function CountrySelector(props) {
     />
   );
 }
-
 export default CountrySelector;

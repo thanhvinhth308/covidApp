@@ -4,27 +4,22 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import GlobalLoading from './components/GlobalLoading';
+import './i18';
 import './index.css';
 import store from './redux/store';
 import reportWebVitals from './reportWebVitals';
-import './i18';
 ReactDOM.render(
   <Provider store={store}>
-    {/* <I18nextProvider i18n={i18next}> */}
     <BrowserRouter>
-      <SnackbarProvider
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        maxSnack={2}
-        autoHideDuration={1500}
-      >
+      <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'right' }} maxSnack={2} autoHideDuration={1500}>
         <React.StrictMode>
-          <Suspense fallback={<div>Loading</div>}>
+          <Suspense fallback={<GlobalLoading />}>
             <App />
           </Suspense>
         </React.StrictMode>
       </SnackbarProvider>
     </BrowserRouter>
-    {/* </I18nextProvider> */}
   </Provider>,
   document.getElementById('root')
 );
