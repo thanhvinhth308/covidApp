@@ -3,21 +3,22 @@ import { deepOrange } from '@material-ui/core/colors';
 import { Autocomplete } from '@material-ui/lab';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 CountrySelector.propTypes = {};
+
 const useStyles = makeStyles((theme) => ({
   square: {
     color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500]
+    backgroundColor: deepOrange[500],
   },
   option: {
     fontSize: 15,
     '& > span': {
       marginRight: 10,
-      fontSize: 18
-    }
-  }
+      fontSize: 18,
+    },
+  },
 }));
+
 function CountrySelector(props) {
   const { onCountryChange, countries = [] } = props;
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ function CountrySelector(props) {
       id="country-select"
       options={countries}
       classes={{
-        option: classes.option
+        option: classes.option,
       }}
       onChange={onCountryChange}
       autoHighlight
@@ -51,7 +52,7 @@ function CountrySelector(props) {
             fullWidth
             inputProps={{
               ...params.inputProps,
-              autoComplete: 'new-password'
+              autoComplete: 'new-password',
             }}
           />
         </Box>
@@ -59,5 +60,4 @@ function CountrySelector(props) {
     />
   );
 }
-
 export default CountrySelector;

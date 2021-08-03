@@ -35,17 +35,14 @@ const filterCountryReport = (data, startDate, endedDate) => {
 
   const recoveredDayIndex = recoveredDay.findIndex((day) => day === startDate);
   const recoveredEndedDayIndex = recoveredDay.findIndex((day) => day === endedDate);
-  const recoveredValue = Object.values(recovered).slice(
-    recoveredDayIndex,
-    recoveredEndedDayIndex + 1
-  );
+  const recoveredValue = Object.values(recovered).slice(recoveredDayIndex, recoveredEndedDayIndex + 1);
   const recoveredKey = Object.keys(recovered).slice(recoveredDayIndex, recoveredEndedDayIndex + 1);
   const newRecovered = {};
   for (let y = 0; y < casesKey.length; y++) {
     newRecovered[recoveredKey[y]] = recoveredValue[y];
   }
 
-  if (!Object.keys(newCases).length) return {};
+  if (casesDayIndex < 0 || casesEndedDayIndex < 0) return {};
   const dataMap = { timeline: { cases: newCases, deaths: newDeaths, recovered: newRecovered } };
   return dataMap;
 };

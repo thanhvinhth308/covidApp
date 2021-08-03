@@ -1,4 +1,4 @@
-import { Box, Paper, useTheme } from '@material-ui/core';
+import { Box, Paper } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import WorldMap from '../../components/Chart/WorldMap';
@@ -11,7 +11,7 @@ function Home(props) {
   const { t } = useTranslation();
 
   return (
-    <Box paddingTop="80px" className="home__content">
+    <Box paddingTop="80px" className="home">
       <InfoCard />
       <Paper elevation={10}>
         <p className="home__title">{t('homePage.mapTitle')}</p>
@@ -34,5 +34,4 @@ function Home(props) {
     </Box>
   );
 }
-
 export default Home;

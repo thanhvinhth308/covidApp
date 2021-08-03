@@ -1,4 +1,7 @@
-.allNews-root {
+.allNews {
+  a {
+    color: unset;
+  }
   .allNews__table {
     .MuiTable-root {
       .MuiTableHead-root {
@@ -25,6 +28,9 @@
         }
       }
     }
+  }
+  .MuiChip-root.MuiChip-colorSecondary.MuiChip-deletableColorSecondary.MuiChip-outlined.MuiChip-outlinedSecondary.MuiChip-deletable {
+    margin-right: 5px;
   }
   .react-clock {
     margin: auto;

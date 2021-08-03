@@ -1,19 +1,16 @@
-// .header__root {
-//   flex-grow: 1;
-//   display: flex;
-// }
-
-.header__slogan {
-  flex-grow: 1;
-  color: white;
-  @media screen and (max-width: 480px) {
-    font-size: 17px;
+.header {
+  .header__slogan {
+    flex-grow: 1;
+    color: white;
+    @media screen and (max-width: 480px) {
+      font-size: 17px;
+    }
+    font-size: 20px;
+    visibility: visible;
+    margin-bottom: 0px;
   }
-  font-size: 20px;
-  visibility: visible;
-  margin-bottom: 0px;
-}
 
-.MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiInputBase-input.MuiInput-input {
-  color: white;
+  .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiInputBase-input.MuiInput-input {
+    color: white;
+  }
 }

@@ -17,7 +17,7 @@ import {
   Select,
   Switch,
   Toolbar,
-  useTheme
+  useTheme,
 } from '@material-ui/core';
 import BurstModeIcon from '@material-ui/icons/BurstMode';
 import HomeIcon from '@material-ui/icons/Home';
@@ -38,38 +38,37 @@ import './Header.scss';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    display: 'flex'
+    display: 'flex',
   },
   listItem: {
     'MuiListItem-root Mui-selected': {
       backgroundColor: 'yellow!important',
       color: 'red',
       fontWeight: 'bold',
-      fontSize: '30px'
-    }
+      fontSize: '30px',
+    },
   },
   drawer: {
     [theme.breakpoints.up('md')]: {
       width: drawerWidth,
-      flexShrink: 0
-    }
+      flexShrink: 0,
+    },
   },
   appBar: {
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth
-    }
+      marginLeft: drawerWidth,
+    },
   },
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   drawerPaper: {
-    width: drawerWidth
-    // backgroundColor: 'pink',
-  }
+    width: drawerWidth,
+  },
 }));
 const drawerWidth = 170;
 function Header(props) {
@@ -86,7 +85,6 @@ function Header(props) {
   const handleThemeChange = () => {
     dispatch(GlobalActions.changeTheme(!darkMode));
   };
-
   const navigateHomePage = () => {
     history.push('/');
   };
@@ -108,32 +106,26 @@ function Header(props) {
   const handleLogoutClick = () => {
     localStorage.removeItem('username');
     localStorage.removeItem('password');
-    enqueueSnackbar('Đăng xuất thành công', { variant: 'success' });
+    enqueueSnackbar(t('form.enqueueSnackbar--logout__success'), { variant: 'success' });
     history.push('/news');
   };
   const handleLanguageChange = (e) => {
     i18next.changeLanguage(e.target.value);
-    // setLanguage(e.target.value);
+  };
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
   const { window } = props;
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
 
   const drawer = (
     <div className={classes.listItem}>
       <Image width="100%" src={logo2} />
       <Divider />
       <List>
-        <ListItem
-          button
-          key={t('header.home')}
-          onClick={navigateHomePage}
-          selected={match.path === '/'}
-        >
+        <ListItem button key={t('header.home')} onClick={navigateHomePage} selected={match.path === '/'}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
@@ -143,12 +135,7 @@ function Header(props) {
       <Divider />
 
       <List>
-        <ListItem
-          button
-          key={t('header.news')}
-          onClick={navigateNewsPage}
-          selected={match.path === '/news'}
-        >
+        <ListItem button key={t('header.news')} onClick={navigateNewsPage} selected={match.path === '/news'}>
           <ListItemIcon>
             <BurstModeIcon />
           </ListItemIcon>
@@ -171,10 +158,10 @@ function Header(props) {
       </List>
     </div>
   );
-
   const container = window !== undefined ? () => window().document.body : undefined;
+
   return (
-    <div>
+    <div className="header">
       <CssBaseline />
       <AppBar color="secondary" className={classes.appBar}>
         <Toolbar>
@@ -220,11 +207,11 @@ function Header(props) {
         onClose={handleMenuClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'right'
+          horizontal: 'right',
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'right'
+          horizontal: 'right',
         }}
         getContentAnchorEl={null}
       >
@@ -241,10 +228,10 @@ function Header(props) {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             classes={{
-              paper: classes.drawerPaper
+              paper: classes.drawerPaper,
             }}
             ModalProps={{
-              keepMounted: true // Better open performance on mobile.
+              keepMounted: true, // Better open performance on mobile.
             }}
           >
             {drawer}
@@ -253,7 +240,7 @@ function Header(props) {
         <Hidden smDown implementation="css">
           <Drawer
             classes={{
-              paper: classes.drawerPaper
+              paper: classes.drawerPaper,
             }}
             variant="permanent"
             open

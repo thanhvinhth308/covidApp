@@ -24,20 +24,20 @@ function InfoCard(props) {
             type: 'card__cases',
             title: t('allNews.infoCard.cases'),
             number: numeral(res.cases).format('0.0a'),
-            today: numeral(res.todayCases).format('0.0a')
+            today: numeral(res.todayCases).format('0.0a'),
           },
           {
             type: 'card__recovered',
             title: t('allNews.infoCard.recovered'),
             number: numeral(res.recovered).format('0.0a'),
-            today: numeral(res.todayRecovered).format('0.0a')
+            today: numeral(res.todayRecovered).format('0.0a'),
           },
           {
             type: 'card__deaths',
             title: t('allNews.infoCard.deaths'),
             number: numeral(res.deaths).format('0.0a'),
-            today: numeral(res.todayDeaths).format('0.0a')
-          }
+            today: numeral(res.todayDeaths).format('0.0a'),
+          },
         ];
         if (isMount) {
           setNotableNumbers(numbers);
@@ -50,13 +50,12 @@ function InfoCard(props) {
       isMount = false;
     };
   }, []);
-
   useEffect(() => {
     if (notableNumbers.length > 0) {
       const newNumbers = [
         { ...notableNumbers[0], title: t('allNews.infoCard.cases') },
         { ...notableNumbers[1], title: t('allNews.infoCard.recovered') },
-        { ...notableNumbers[2], title: t('allNews.infoCard.deaths') }
+        { ...notableNumbers[2], title: t('allNews.infoCard.deaths') },
       ];
       setNotableNumbers(newNumbers);
     }
@@ -65,7 +64,7 @@ function InfoCard(props) {
   return (
     <div>
       <Typography variant="h5" component="h5" color="secondary" align="center">
-        COVID-19 WORLDWIDE
+        {t('allNews.infoCard.title')}
       </Typography>
       <Grid container>
         {notableNumbers.map((notableNumber, index) => (

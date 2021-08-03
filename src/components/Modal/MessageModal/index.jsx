@@ -1,16 +1,16 @@
 import { Modal } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { GlobalActions } from '../../../redux/rootAction';
 
 function MessageModal(props) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const visible = useSelector((state) => state.GlobalReducer.isErrorHandler);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
-  const [modalText, setModalText] = React.useState('Get Data failed,please try again');
 
   const handleOk = () => {
-    setModalText('Please wait a minutes');
     setConfirmLoading(true);
     setTimeout(() => {
       dispatch(GlobalActions.toggleErrorHandler(false));
@@ -30,7 +30,7 @@ function MessageModal(props) {
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
-        <p>{modalText}</p>
+        <p>{t('modal.failMessage.inform')}</p>
       </Modal>
     </>
   );

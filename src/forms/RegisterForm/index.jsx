@@ -11,20 +11,20 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(5),
     margin: 'auto',
-    height: '100%'
+    height: '100%',
   },
   title: {
     margin: theme.spacing(2, 0, 4, 0),
     textAlign: 'center',
-    fontSize: '20px'
+    fontSize: '20px',
   },
   submit: {
-    margin: theme.spacing(5, 0, 3, 0)
+    margin: theme.spacing(2, 0, 3, 0),
   },
   avatar: {
     margin: '0 auto',
-    background: theme.palette.secondary.main
-  }
+    background: theme.palette.secondary.main,
+  },
 }));
 
 function RegisterForm(props) {
@@ -34,7 +34,7 @@ function RegisterForm(props) {
   const initialValues = {
     username: '',
     password: '',
-    confirmPassWord: ''
+    confirmPassWord: '',
   };
   let validationSchema = yup.object().shape({
     username: yup.string().min(6, t('form.minMes')).required(t('form.reqMes')).typeError(t('form.reqMes')),
@@ -44,9 +44,10 @@ function RegisterForm(props) {
       .min(6, t('form.minMes'))
       .required(t('form.reqMes'))
       .typeError(t('form.reqMes'))
-      .oneOf([yup.ref('password')], t('form.isNotMatchMes'))
+      .oneOf([yup.ref('password')], t('form.isNotMatchMes')),
   });
-  const handleDrinkAddToCart = (formValue) => {
+
+  const handleRegisterSubmit = (formValue) => {
     if (onAccountRegister) {
       onAccountRegister(formValue);
     }
@@ -62,7 +63,7 @@ function RegisterForm(props) {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={(formValue) => handleDrinkAddToCart(formValue)}
+          onSubmit={(formValue) => handleRegisterSubmit(formValue)}
         >
           {() => {
             return (

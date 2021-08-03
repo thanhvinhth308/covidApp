@@ -9,12 +9,11 @@ import {
   MenuItem,
   Select,
   Switch,
-  Toolbar
+  Toolbar,
 } from '@material-ui/core';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Close } from '@material-ui/icons';
 import i18next from 'i18next';
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,25 +23,25 @@ import { GlobalActions } from '../../redux/rootAction';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    backgroundColor: '#454242'
+    backgroundColor: '#454242',
   },
   toolbar: {
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   right: {
     flex: 1,
     display: 'flex',
     justifyContent: 'flex-end',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   rightLink: {
     fontSize: 16,
     color: theme.palette.common.white,
-    marginLeft: theme.spacing(3)
+    marginLeft: theme.spacing(3),
   },
   closeButton: {
-    justifyContent: 'flex-end'
-  }
+    justifyContent: 'flex-end',
+  },
 }));
 
 function PublicHeader(props) {
@@ -71,7 +70,6 @@ function PublicHeader(props) {
   };
   const handleLanguageChange = (e) => {
     i18next.changeLanguage(e.target.value);
-    // setLanguage(e.target.value);
   };
 
   return (
@@ -85,7 +83,9 @@ function PublicHeader(props) {
                 onChange={handleLanguageChange}
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
-                defaultValue={language}
+                value={language}
+                color="secondary"
+                style={{ color: 'white' }}
               >
                 <MenuItem value="en">EN</MenuItem>
                 <MenuItem value="vn">VN</MenuItem>
@@ -131,11 +131,7 @@ function PublicHeader(props) {
           disableBackdropClick
           disableEscapeKeyDown
         >
-          <IconButton
-            className={classes.closeButton}
-            color="secondary"
-            onClick={handleRegisterClose}
-          >
+          <IconButton className={classes.closeButton} color="secondary" onClick={handleRegisterClose}>
             <Close></Close>
           </IconButton>
           <DialogContent>
@@ -148,9 +144,5 @@ function PublicHeader(props) {
     </div>
   );
 }
-
-PublicHeader.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default PublicHeader;

@@ -9,21 +9,21 @@ const generateOptions = (data, darkMode) => {
   return {
     chart: {
       height: 400,
-      backgroundColor: darkMode ? themeColor.gray : themeColor.light
+      backgroundColor: darkMode ? themeColor.gray : themeColor.light,
     },
     title: {
-      text: null
+      text: null,
     },
     xAxis: {
       categories: data?.cases && Object.keys(data.cases),
-      crosshair: true
+      crosshair: true,
     },
-    colors: ['#cb2b83', '#164c7e', '#49aa19'],
+    colors: ['#e0529c', '#177ddc', '#6abe39'],
     yAxis: {
       min: 0,
       title: {
-        text: null
-      }
+        text: null,
+      },
     },
     tooltip: {
       headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -32,12 +32,12 @@ const generateOptions = (data, darkMode) => {
         `<td style="padding:0"><b>{point.y} ca</b></td></tr>`,
       footerFormat: '</table>',
       shared: 'true',
-      useHTML: 'true'
+      useHTML: 'true',
     },
     plotOptions: {
       column: {
         pointPadding: 0.2,
-        borderWidth: 0
+        borderWidth: 0,
       },
       series: {
         events: {
@@ -50,26 +50,26 @@ const generateOptions = (data, darkMode) => {
                   if (count > 1) break;
                 }
               }
-              if (count == 1) return false;
+              if (count === 1) return false;
             }
-          }
-        }
-      }
+          },
+        },
+      },
     },
     series: [
       {
         name: 'Cases',
-        data: data?.cases && Object.values(data.cases)
+        data: data?.cases && Object.values(data.cases),
       },
       {
         name: 'Deaths',
-        data: data?.deaths && Object.values(data.deaths)
+        data: data?.deaths && Object.values(data.deaths),
       },
       {
         name: 'Recovered',
-        data: data?.recovered && Object.values(data.recovered)
-      }
-    ]
+        data: data?.recovered && Object.values(data.recovered),
+      },
+    ],
   };
 };
 
@@ -81,6 +81,7 @@ function BasicLineChart(props) {
   useEffect(() => {
     setOptions(generateOptions(report, darkMode));
   }, [report, darkMode]);
+
   return (
     <div>
       <HighchartsReact highcharts={Highchart} options={options} />

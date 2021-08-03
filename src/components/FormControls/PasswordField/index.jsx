@@ -7,8 +7,8 @@ PasswordField.propTypes = {};
 
 function PasswordField(props) {
   const { field, form, label } = props;
-  const { value, name, onBlur, onChange } = field;
-  const { errors, touched, isSubmitting } = form;
+  const { name } = field;
+  const { errors, touched } = form;
   const showError = errors[name] && touched[name];
   const [showPassword, setShowPassword] = useState(false);
 
@@ -33,13 +33,11 @@ function PasswordField(props) {
                 {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
               </IconButton>
             </InputAdornment>
-          )
+          ),
         }}
         {...field}
       />
-      <ErrorMessage name={name}>
-        {(msg) => <Typography color="secondary">{msg}</Typography>}
-      </ErrorMessage>
+      <ErrorMessage name={name}>{(msg) => <Typography color="secondary">{msg}</Typography>}</ErrorMessage>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Box, Grid, LinearProgress, Typography } from '@material-ui/core';
-import { DatePicker, Space } from 'antd';
+import { DatePicker, Empty, Skeleton, Space } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +28,7 @@ function StatisticsByCountry(props) {
   const [countryId, setCountryId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [endedDataDate, setEndedDataDate] = useState('7/30/21');
-  const [startedDate, setStartedDate] = useState('7/20/21');
+  const [startedDate, setStartedDate] = useState('7/25/21');
   const [endedDate, setEndedDate] = useState('7/30/21');
 
   const handleCountryChange = (event, value) => {
@@ -44,35 +44,34 @@ function StatisticsByCountry(props) {
     setCountryReport(filterCountryReport(countryReportRes.timeline, startedTime, endedTime));
   };
   const handleCountriesData = async () => {
-    setIsLoading(true);
-    const respond = await covidApi.getSummaryAllCountry();
-    const countriesData = respond.map((country) => ({
-      country: country.country,
-      iso2: country.countryInfo.iso2?.toLowerCase(),
-      flag: country.countryInfo?.flag
-    }));
-    setCountries(countriesData);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
     try {
-      handleCountriesData();
+      setIsLoading(true);
+      const respond = await covidApi.getSummaryAllCountry();
+      const countriesData = respond.map((country) => ({
+        country: country.country,
+        iso2: country.countryInfo.iso2?.toLowerCase(),
+        flag: country.countryInfo?.flag,
+      }));
+      setCountries(countriesData);
+      setIsLoading(false);
     } catch (error) {
       dispatch(GlobalActions.toggleErrorHandler(true));
       setIsLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
-    if (countryName) {
+    handleCountriesData();
+  }, []);
+  useEffect(() => {
+    if (countries.length) {
       setIsLoading(true);
       history.push(`/countries/${countryName}`);
       const selectedCountry = countries.find((country) => country.country === countryName);
-      setCountryId(selectedCountry?.iso2);
       covidApi
         .getSummaryByCountry(countryName, 'all')
         .then((res) => {
+          setCountryId(selectedCountry?.iso2);
           setCountryReportRes(res);
           const endedDateRes = Object.keys(res.timeline.cases).pop();
           setEndedDate(endedDateRes);
@@ -85,12 +84,16 @@ function StatisticsByCountry(props) {
           setIsLoading(false);
         });
     }
-  }, [countries, countryName]);
+  }, [countryName, countries]);
 
   return (
-    <div className="statisticsByCountry__content">
+    <div className="statisticsByCountry">
       <CountrySelector onCountryChange={handleCountryChange} countries={countries} />
-      {isLoading && <LinearProgress color="secondary" />}
+      {isLoading && (
+        <Box mt={1}>
+          <LinearProgress color="secondary" />
+        </Box>
+      )}
       <Typography variant="h4" component="h4" color="secondary">
         {countryReportRes?.country}
       </Typography>
@@ -107,26 +110,44 @@ function StatisticsByCountry(props) {
         </Space>
       </Box>
 
-      {Object.keys(countryReportRes).length && Object.keys(countryReport).length ? (
-        <Grid container>
-          <Grid item sm={6} xs={12}>
-            <LineChart report={countryReport?.timeline} />
+      {Object.keys(countryReportRes).length ? (
+        Object.keys(countryReport).length ? (
+          <Grid container>
+            <Grid item sm={6} xs={12}>
+              <Typography align="center" variant="h6" color="secondary" gutterBottom>
+                {t('detailPage.title--lineChart')}
+              </Typography>
+              <LineChart report={countryReport?.timeline} />
+            </Grid>
+            <Grid item sm={6} xs={12}>
+              <Typography align="center" variant="h6" color="secondary" gutterBottom>
+                {t('detailPage.title--circleChart')}
+              </Typography>
+              <CircleChart report={countryReport?.timeline} />
+            </Grid>
+            <Grid item sm={6} xs={12}>
+              <Typography align="center" variant="h6" color="secondary" gutterBottom>
+                {t('detailPage.title--columnChart')}
+              </Typography>
+              <AreaChart report={countryReport?.timeline} />
+            </Grid>
+            <Grid item sm={6} xs={12}>
+              <Typography align="center" variant="h6" color="secondary" gutterBottom>
+                {t('detailPage.title--map')}
+              </Typography>
+              <CountryMap countryId={countryId} />
+            </Grid>
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CircleChart report={countryReport?.timeline} />
-          </Grid>
-          <Grid item sm={6} xs={12}>
-            <AreaChart report={countryReport?.timeline} />
-          </Grid>
-          <Grid item sm={6} xs={12}>
-            <CountryMap countryId={countryId} />
-          </Grid>
-        </Grid>
+        ) : (
+          <Box height="700px" pt={2} textAlign="center">
+            <Typography color="secondary">{t('detailPage.title--nodata__warning')}</Typography>
+            <Empty />
+          </Box>
+        )
       ) : (
-        <Box>No data</Box>
+        <Skeleton paragraph={{ rows: 13 }} active />
       )}
     </div>
   );
 }
-
 export default StatisticsByCountry;

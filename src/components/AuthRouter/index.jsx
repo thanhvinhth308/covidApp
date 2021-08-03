@@ -1,6 +1,6 @@
 import React from 'react';
-import MainLayout from '../../layouts/MainLayout';
 import { Redirect, Route } from 'react-router-dom';
+import MainLayout from '../../layouts/MainLayout';
 import { checkToken } from '../../utils/helper';
 
 function AuthRouter({ component: Component, ...rest }) {

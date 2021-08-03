@@ -5,9 +5,9 @@ import 'react-clock/dist/Clock.css';
 import './Watch.scss';
 function Watch(props) {
   const [value, setValue] = useState(new Date());
+
   useEffect(() => {
     const interval = setInterval(() => setValue(new Date()), 1000);
-
     return () => {
       clearInterval(interval);
     };

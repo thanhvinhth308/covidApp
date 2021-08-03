@@ -18,7 +18,7 @@ const columns = [
       <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.id}
       </Box>
-    )
+    ),
   },
 
   {
@@ -32,7 +32,7 @@ const columns = [
         <Avatar src={params.row.flag} />
         <div>{params.row.country}</div>
       </Box>
-    )
+    ),
   },
   {
     field: 'continent',
@@ -44,7 +44,7 @@ const columns = [
       <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.continent}
       </Box>
-    )
+    ),
   },
   {
     field: 'cases',
@@ -57,7 +57,7 @@ const columns = [
       <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.cases}
       </Box>
-    )
+    ),
   },
   {
     field: 'recovered',
@@ -70,7 +70,7 @@ const columns = [
       <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.recovered}
       </Box>
-    )
+    ),
   },
   {
     field: 'deaths',
@@ -83,8 +83,8 @@ const columns = [
       <Box textAlign="center" width="100%" fontWeight="bold">
         {params.row.deaths}
       </Box>
-    )
-  }
+    ),
+  },
 ];
 
 function TableStatistics(props) {
@@ -97,31 +97,32 @@ function TableStatistics(props) {
     history.push(`/countries/${e.row.country}`);
   };
   const handleMapData = async () => {
-    setIsLoading(true);
-    const information = await covidApi.getSummaryAllCountry();
-    const informationFilter = information.map((country, index) => ({
-      id: index + 1,
-      flag: country.countryInfo.flag,
-      country: country?.country,
-      continent: country?.continent,
-      cases: country?.cases,
-      recovered: country?.recovered,
-      deaths: country?.deaths
-    }));
-    setIsLoading(false);
-    setInfoCountries(informationFilter);
-  };
-
-  useEffect(() => {
     try {
-      handleMapData();
+      setIsLoading(true);
+      const information = await covidApi.getSummaryAllCountry();
+      const informationFilter = information.map((country, index) => ({
+        id: index + 1,
+        flag: country.countryInfo.flag,
+        country: country?.country,
+        continent: country?.continent,
+        cases: country?.cases,
+        recovered: country?.recovered,
+        deaths: country?.deaths,
+      }));
+      setIsLoading(false);
+      setInfoCountries(informationFilter);
     } catch (error) {
       dispatch(GlobalActions.toggleErrorHandler(true));
       setIsLoading(false);
     }
+  };
+
+  useEffect(() => {
+    handleMapData();
   }, []);
+
   return (
-    <Box className="Statistic__table" style={{ height: 620 }}>
+    <Box className="statistic__table" style={{ height: 620 }}>
       <DataGrid
         showCellRightBorder={true}
         showColumnRightBorder={true}

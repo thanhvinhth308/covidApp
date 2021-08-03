@@ -1,3 +1,4 @@
+import { Box, CircularProgress } from '@material-ui/core';
 import Highchart from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highchartsMap from 'highcharts/modules/map';
@@ -11,45 +12,41 @@ highchartsMap(Highchart);
 
 const initOption = {
   chart: {
-    height: '500'
+    height: '500',
   },
   title: {
-    text: null
+    text: null,
   },
-
   mapNavigation: {
-    enabled: true
+    enabled: true,
   },
-
   colorAxis: {
     min: 0,
     stops: [
-      [0.2, '#e0529c'],
-      [0.4, '#cb2b83'],
-      [0.6, '#cb2b83'],
-      [0.8, '#a02669'],
-      [1, '#551c3b']
-    ]
+      [0.2, '#e84749'],
+      [0.4, '#a61d24'],
+      [0.6, '#791a1f'],
+      [0.8, '#58181c'],
+      [1, '#431418'],
+    ],
   },
-
   legend: {
     layout: 'bottom',
     align: 'left',
-    verticalAlign: 'bottom'
+    verticalAlign: 'bottom',
   },
-
   series: [
     {
       mapData: {},
       joinBy: ['hc-key', 'key'],
-      name: 'Population'
-    }
-  ]
+      name: 'Population',
+    },
+  ],
 };
 
 function CountryMap(props) {
   const { countryId } = props;
-
+  const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState({});
   const [mapData, setMapData] = useState(null);
   const darkMode = useSelector((state) => state.GlobalReducer.darkTheme);
@@ -57,41 +54,55 @@ function CountryMap(props) {
 
   useEffect(() => {
     if (countryId) {
-      import(`@highcharts/map-collection/countries/${countryId}/${countryId}-all.geo.json`).then((res) => {
-        const fakeData = res.features.map((feature, index) => ({
-          key: feature.properties['hc-key'],
-          value: index
-        }));
-        setMapData(res);
-        setOptions({
-          ...initOption,
-          chart: {
-            backgroundColor: darkMode ? themeColor.gray : themeColor.light,
-            height: '400'
-          },
-          series: [
-            {
-              ...initOption.series[0],
-              mapData: res,
-              data: fakeData
-            }
-          ]
+      setIsLoading(true);
+      import(`@highcharts/map-collection/countries/${countryId}/${countryId}-all.geo.json`)
+        .then((res) => {
+          setIsLoading(false);
+          const fakeData = res.features.map((feature, index) => ({
+            key: feature.properties['hc-key'],
+            value: index,
+          }));
+          setMapData(res);
+          setOptions({
+            ...initOption,
+            chart: {
+              backgroundColor: darkMode ? themeColor.gray : themeColor.light,
+              height: '400',
+            },
+            series: [
+              {
+                ...initOption.series[0],
+                mapData: res,
+                data: fakeData,
+              },
+            ],
+          });
+        })
+        .catch((error) => {
+          setOptions({
+            title: {
+              text: 'Sorry,Map not found :((',
+              verticalAlign: 'middle',
+            },
+          });
+          setIsLoading(false);
         });
-      });
     }
   }, [countryId, darkMode]);
-
   useEffect(() => {
     if (chartRef && chartRef.current) {
       chartRef.current.chart.series[0]?.update({
-        mapData
+        mapData,
       });
     }
   }, [mapData]);
-  return (
-    <div>
-      <HighchartsReact highcharts={Highchart} options={cloneDeep(options)} constructorType="mapChart" ref={chartRef} />
-    </div>
+
+  return isLoading ? (
+    <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+      <CircularProgress color="secondary" />
+    </Box>
+  ) : (
+    <HighchartsReact highcharts={Highchart} options={cloneDeep(options)} constructorType="mapChart" ref={chartRef} />
   );
 }
 
